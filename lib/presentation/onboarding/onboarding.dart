@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced/presentation/resources/style_manager.dart';
+
+import '../resources/color_pallete.dart';
+import '../resources/font_manager.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -10,6 +14,9 @@ class OnBoardingView extends StatefulWidget {
 class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: ColorPallete.primaryOrange,
+      body: Center(child: Text('Welcome to Onboarding'),),
+    );
   }
 }
