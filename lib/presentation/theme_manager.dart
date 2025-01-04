@@ -92,7 +92,7 @@ ThemeData getApplicationTheme() {
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPallete.errorRed, width: AppSize.s1_5),
+        borderSide: BorderSide(color: ColorPallete.primaryOrange, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
     ),
