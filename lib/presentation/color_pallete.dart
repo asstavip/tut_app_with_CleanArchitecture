@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class ColorPallete {
   static const Color primaryOrange = Color(0xFFED9728);
   static const Color primaryLightOrange = Color(0xFFFFD2A6);
@@ -8,7 +9,6 @@ class ColorPallete {
   static const Color primaryWhite = Color(0xFFFFFFFF);
   static Color secondaryWhite = colorFromHex('#F5F5F5');
   static const Color errorRed = Color(0xFFE61F34);
-
 }
 
 Color colorFromHex(String hexColor) {

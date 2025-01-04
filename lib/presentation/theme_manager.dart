@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/color_pallete.dart';
 import 'package:flutter_advanced/presentation/style_manager.dart';
 import 'package:flutter_advanced/presentation/values_manager.dart';
+
 import 'font_manager.dart';
 
 ThemeData getApplicationTheme() {
@@ -14,7 +15,8 @@ ThemeData getApplicationTheme() {
     splashColor: ColorPallete.primaryLightOrange,
 
     //other colors
-    disabledColor: ColorPallete.primaryGray,//will be used when the button is disabled
+    disabledColor: ColorPallete.primaryGray,
+    //will be used when the button is disabled
 
     //card view theme
     cardTheme: CardTheme(
@@ -32,7 +34,8 @@ ThemeData getApplicationTheme() {
       color: ColorPallete.primaryOrange,
       elevation: AppSize.s4,
       shadowColor: ColorPallete.primaryGray,
-      titleTextStyle: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      titleTextStyle: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
     ),
 
     //button theme
@@ -55,18 +58,30 @@ ThemeData getApplicationTheme() {
     ),
     //text theme
     textTheme: TextTheme(
-      displayLarge: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      displayMedium: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      displaySmall: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      headlineLarge: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      headlineMedium: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      headlineSmall: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      titleLarge: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      titleMedium: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      titleSmall: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      bodyLarge: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      bodyMedium: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      bodySmall: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      displayLarge: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      displayMedium: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      displaySmall: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      headlineLarge: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      headlineMedium: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      headlineSmall: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      titleLarge: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      titleMedium: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      titleSmall: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      bodyLarge: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      bodyMedium: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      bodySmall: getRegularStyle(
+          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
     ),
 
     //input decoration theme(text from fields)
@@ -80,19 +95,23 @@ ThemeData getApplicationTheme() {
       labelStyle: getRegularStyle(color: ColorPallete.primaryWhite),
       errorStyle: getRegularStyle(color: ColorPallete.errorRed),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPallete.primaryGray, width: AppSize.s1_5),
+        borderSide:
+            BorderSide(color: ColorPallete.primaryGray, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPallete.primaryOrange, width: AppSize.s1_5),
+        borderSide:
+            BorderSide(color: ColorPallete.primaryOrange, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPallete.errorRed, width: AppSize.s1_5),
+        borderSide:
+            BorderSide(color: ColorPallete.errorRed, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPallete.primaryOrange, width: AppSize.s1_5),
+        borderSide:
+            BorderSide(color: ColorPallete.primaryOrange, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
     ),
