@@ -40,6 +40,18 @@ ThemeData getApplicationTheme() {
       shape: StadiumBorder(),
       disabledColor: ColorPallete.primaryGray,
       buttonColor: ColorPallete.primaryOrange,
+      splashColor: ColorPallete.primaryLightOrange,
+    ),
+
+    // elevation button theme
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorPallete.primaryOrange,
+        textStyle: getRegularStyle(color: ColorPallete.primaryWhite),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s12),
+        ),
+      ),
     ),
     //text theme
     textTheme: TextTheme(
@@ -56,6 +68,33 @@ ThemeData getApplicationTheme() {
       bodyMedium: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
       bodySmall: getRegularStyle(color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
     ),
+
     //input decoration theme(text from fields)
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(AppPadding.p8),
+      fillColor: ColorPallete.primaryWhite,
+      filled: true,
+      prefixIconColor: ColorPallete.primaryOrange,
+      suffixIconColor: ColorPallete.primaryOrange,
+      hintStyle: getRegularStyle(color: ColorPallete.primaryGray),
+      labelStyle: getRegularStyle(color: ColorPallete.primaryWhite),
+      errorStyle: getRegularStyle(color: ColorPallete.errorRed),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorPallete.primaryGray, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorPallete.primaryOrange, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorPallete.errorRed, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorPallete.errorRed, width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+    ),
   );
 }

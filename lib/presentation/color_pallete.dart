@@ -7,7 +7,7 @@ class ColorPallete {
   static const Color lightGray = Color(0xFF737477);
   static const Color primaryWhite = Color(0xFFFFFFFF);
   static Color secondaryWhite = colorFromHex('#F5F5F5');
-
+  static const Color errorRed = Color(0xFFE61F34);
 
 }
 
