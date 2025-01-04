@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 class ColorPallete {
   static const Color primaryOrange = Color(0xFFED9728);
+  static const Color primaryLightOrange = Color(0xFFFFD2A6);
   static const Color primaryGray = Color(0xFF525252);
   static const Color gray = Color(0xFF9E9E9E);
   static const Color lightGray = Color(0xFF737477);
