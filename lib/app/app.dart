@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/presentation/theme_manager.dart';
+import 'package:flutter_advanced/presentation/resources/theme_manager.dart';
 
 class MyApp extends StatefulWidget {
   int counter = 0;
