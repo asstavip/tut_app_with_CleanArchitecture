@@ -52,11 +52,9 @@ class OnboardingViewModel
   }
 
   @override
-  // TODO: implement inputSliderViewObject
   Sink get inputSliderViewObject => _streamController.sink;
 
   @override
-  // TODO: implement outputSliderViewObject
   Stream<SliderViewObject> get outputSliderViewObject =>
       _streamController.stream.map((sliderViewObject) => sliderViewObject);
 
@@ -72,7 +70,7 @@ class OnboardingViewModel
       ];
 
   void _postDataToView() {
-    _streamController.add(SliderViewObject(
+    inputSliderViewObject.add(SliderViewObject(
         sliderObject: _list[_currentIndex],
         numOfSlides: _list.length,
         currentIndex: _currentIndex));

@@ -20,10 +20,10 @@ class OnBoardingView extends StatefulWidget {
 
 class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController _pageController = PageController(initialPage: 0);
-  OnboardingViewModel _viewModel = OnboardingViewModel();
+  OnboardingViewModel _onBoardingViewModel = OnboardingViewModel();
 
   _bind() {
-    _viewModel.start();
+    _onBoardingViewModel.start();
   }
 
   @override
@@ -35,13 +35,13 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SliderViewObject>(
-        stream: _viewModel.outputs.sliderViewObject,
+        stream: _onBoardingViewModel.outputSliderViewObject,
         builder: (context, snapshot) {
           return _getContentWidget(snapshot.data);
         });
   }
 
-  Widget _getBottomSheetWidget() {
+  Widget _getBottomSheetWidget(SliderViewObject sliderViewObject) {
     return Container(
       color: ColorPallete.primaryOrange,
       child: Row(
@@ -56,17 +56,17 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 height: AppSize.s20,
                 child: SvgPicture.asset(ImageAssets.leftArrowIc),
               ),
-              onTap: () => _,
+              onTap: () => _onBoardingViewModel.goPrevious(),
             ),
           ),
 
           //indicators
           Row(
             children: [
-              for (int i = 0; i < _list.length; i++)
+              for (int i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
                   padding: const EdgeInsets.all(AppPadding.p8),
-                  child: _getProperCircle(i),
+                  child: _getProperCircle(i,sliderViewObject.currentIndex),
                 ),
             ],
           ),
@@ -80,7 +80,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 height: AppSize.s20,
                 child: SvgPicture.asset(ImageAssets.rightArrowIc),
               ),
-              onTap: () => _goNext(),
+              onTap: () => _onBoardingViewModel.goNext(),
             ),
           ),
         ],
@@ -88,7 +88,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     );
   }
 
-  Widget _getProperCircle(int index) {
+  Widget _getProperCircle(int index, int _currentIndex) {
     if (_currentIndex == index) {
       return SvgPicture.asset(ImageAssets.hollowCircleIc); //active
     } else {
@@ -115,7 +115,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           controller: _pageController,
           itemCount: sliderViewObject.numOfSlides,
           onPageChanged: (index) {
-            _viewModel.onPageChanged(index);
+            _onBoardingViewModel.onPageChanged(index);
           },
           itemBuilder: (context, index) => OnBoardingPage(
             sliderObject: sliderViewObject.sliderObject,
@@ -137,28 +137,17 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 ),
               ),
             ),
-            _getBottomSheetWidget(),
+            _getBottomSheetWidget(sliderViewObject),
           ]),
         ),
       );
     }
   }
 
-  void _goPrevious() {
-    _pageController.animateToPage(_getPreviousPage(),
-        duration: const Duration(milliseconds: DurationConstant.s300),
-        curve: Curves.bounceInOut);
-  }
-
-  void _goNext() {
-    _pageController.animateToPage(_getNextPage(),
-        duration: const Duration(milliseconds: DurationConstant.s300),
-        curve: Curves.bounceInOut);
-  }
 
   @override
   void dispose() {
-    _viewModel.dispose();
+    _onBoardingViewModel.dispose();
     super.dispose();
   }
 }
