@@ -58,10 +58,10 @@ ThemeData getApplicationTheme() {
     ),
     //text theme
     textTheme: TextTheme(
-      displayLarge: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
-      displayMedium: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+      displayLarge: getSemiBoldStyle(
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
+      displayMedium: getMediumStyle(
+          color: ColorPallete.lightGray, fontSize: FontSizeManager.s16),
       displaySmall: getRegularStyle(
           color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
       headlineLarge: getRegularStyle(
