@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../resources/assets_manager.dart';
 import '../resources/color_pallete.dart';
-import '../resources/font_manager.dart';
+
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
