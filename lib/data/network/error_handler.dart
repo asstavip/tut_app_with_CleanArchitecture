@@ -36,3 +36,22 @@ class ResponseCode {
   static const int INVALID_INPUTS = -7;
 }
 
+class ResponseMessage {
+  // API status code
+  static const String SUCCESS = "success "; // success with data
+  static const String NO_CONTENT = "success with no data"; // success with no data (no content)
+  static const String BAD_REQUEST = "Bad Request, try again later"; // failure, API rejected request
+  static const String UNAUTHORIZED = "User Unauthorized,  try again later"; // failure, user is not authorized
+  static const String FORBIDDEN = "Forbidden,  try again later"; //  failure, API rejected request
+  static const String INTERNAL_SERVER_ERROR = "Internal Server Error, try again later"; // failure, crash in server side
+  static const String NOT_FOUND = "Url Found, try again later"; // failure, not found
+  
+  // local status code
+  static const String UNKNOWN = "Unknown error, try again later";
+  static const String CONNECT_TIMEOUT = "Connection timeout, try again later";
+  static const String CANCEL = "Request cancelled, try again later";
+  static const String RECEIVE_TIMEOUT = "Receive timeout, try again later";
+  static const String SEND_TIMEOUT = "Send timeout, try again later";
+  static const String CACHE_ERROR = "Cache error, try again later";
+  static const String INVALID_INPUTS = "Invalid inputs, try again later";
+}
