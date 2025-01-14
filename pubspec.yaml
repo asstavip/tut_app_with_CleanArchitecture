@@ -43,6 +43,7 @@ dependencies:
   retrofit: ^4.4.2
   retrofit_generator: ^9.1.7
   shared_preferences: ^2.3.5
+  device_info_plus: ^11.2.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0
