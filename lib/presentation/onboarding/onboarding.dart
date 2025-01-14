@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_advanced/domain/model.dart';
+import 'package:flutter_advanced/domain/model/model.dart';
 import 'package:flutter_advanced/presentation/onboarding/onboarding_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/routes_manager.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';

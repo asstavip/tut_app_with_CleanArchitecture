@@ -7,8 +7,8 @@ import 'package:flutter_advanced/data/mapper/mapper.dart';
 import 'package:flutter_advanced/data/network/failure.dart';
 import 'package:flutter_advanced/data/network/network_info.dart';
 import 'package:flutter_advanced/data/request/request.dart';
-import 'package:flutter_advanced/domain/model.dart';
-import 'package:flutter_advanced/domain/repository.dart';
+import 'package:flutter_advanced/domain/model/model.dart';
+import 'package:flutter_advanced/domain/repository/repository.dart';
 
 import '../network/error_handler.dart';
 
