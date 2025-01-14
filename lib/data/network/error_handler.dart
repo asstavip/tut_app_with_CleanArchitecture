@@ -16,7 +16,7 @@ enum DataSource {
   RECEIVE_TIMEOUT,
   SEND_TIMEOUT,
   CACHE_ERROR,
-  NI_INTERNET_CONNETCTION,
+  NO_INTERNET_CONNETCTION,
   UNKNOWN
 }
 
@@ -46,7 +46,7 @@ class ErrorHandler implements Exception {
       case DioExceptionType.cancel:
         return DataSource.CANCEL.getFailure();
       case DioExceptionType.connectionError:
-        return DataSource.NI_INTERNET_CONNETCTION.getFailure();
+        return DataSource.NO_INTERNET_CONNETCTION.getFailure();
       case DioExceptionType.unknown:
         return DataSource.UNKNOWN.getFailure();
     }
@@ -81,9 +81,9 @@ extension DataSourceExtension on DataSource {
         return Failure(ResponseCode.SEND_TIMEOUT, ResponseMessage.SEND_TIMEOUT);
       case DataSource.CACHE_ERROR:
         return Failure(ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR);
-      case DataSource.NI_INTERNET_CONNETCTION:
+      case DataSource.NO_INTERNET_CONNETCTION:
         return Failure(
-            ResponseCode.NI_INTERNET_CONNETCTION, ResponseMessage.NI_INTERNET_CONNETCTION);
+            ResponseCode.NO_INTERNET_CONNETCTION, ResponseMessage.NO_INTERNET_CONNETCTION);
       default:
         return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
     }
@@ -107,7 +107,7 @@ class ResponseCode {
   static const int RECEIVE_TIMEOUT = -4;
   static const int SEND_TIMEOUT = -5;
   static const int CACHE_ERROR = -6;
-  static const int NI_INTERNET_CONNETCTION = -7;
+  static const int NO_INTERNET_CONNETCTION = -7;
 }
 
 class ResponseMessage {
@@ -134,5 +134,10 @@ class ResponseMessage {
   static const String RECEIVE_TIMEOUT = "Receive timeout, try again later";
   static const String SEND_TIMEOUT = "Send timeout, try again later";
   static const String CACHE_ERROR = "Cache error, try again later";
-   static const String NI_INTERNET_CONNETCTION = "No internet connection, try again later";
+   static const String NO_INTERNET_CONNETCTION = "No internet connection, try again later";
+}
+
+class ApiInternalStatus {
+  static const int SUCCESS = 0;
+  static const int FAILURE = 1;
 }

@@ -27,13 +27,13 @@ class RepositoryImpl extends Repository {
         if (response.status == 0) {
           return Right(response.toDomain());
         }else{
-          return Left(Failure(409,response.message ?? "Error message From Api Side"));
+          return Left(Failure(response.status?? ApiInternalStatus.FAILURE,response.message ?? ResponseMessage.UNKNOWN));
         }
       }catch (e) {
          return Left(ErrorHandler.handle(e).failure);
       }
     } else {
-      return Left(Failure(501, "Please check your internet connection"));
+          return Left(DataSource.NO_INTERNET_CONNETCTION.getFailure());
     }
   }
 }
