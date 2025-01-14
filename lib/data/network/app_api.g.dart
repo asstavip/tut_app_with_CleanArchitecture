@@ -20,11 +20,20 @@ class _AppServiceClient implements AppServiceClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AuthenticationResponse> login() async {
+  Future<AuthenticationResponse> login(
+    String email,
+    String password,
+    String imie,
+    String deviceType,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _headers = <String, dynamic>{
+      r'imie': imie,
+      r'deviceType': deviceType,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = {'email': email, 'password': password};
     final _options = _setStreamType<AuthenticationResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
