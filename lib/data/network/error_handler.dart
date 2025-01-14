@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:dio/dio.dart';
 import 'package:flutter_advanced/data/network/failure.dart';
 
 enum DataSource {
@@ -15,7 +16,41 @@ enum DataSource {
   RECEIVE_TIMEOUT,
   SEND_TIMEOUT,
   CACHE_ERROR,
-  NI_INTERNET_CONNETCTION
+  NI_INTERNET_CONNETCTION,
+  UNKNOWN
+}
+
+class ErrorHandler implements Exception {
+  late Failure failure;
+  ErrorHandler.handle(dynamic error) {
+    if (error is DioException) {
+      // dio error so its errors from response of the API
+      failure = _handleError(error);
+    } else {
+      // default error
+      failure = DataSource.UNKNOWN.getFailure();
+    }
+  }
+  Failure _handleError(DioException error) {
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+        return DataSource.CONNECT_TIMEOUT.getFailure();
+      case DioExceptionType.sendTimeout:
+        return DataSource.SEND_TIMEOUT.getFailure();
+      case DioExceptionType.receiveTimeout:
+        return DataSource.RECEIVE_TIMEOUT.getFailure();
+      case DioExceptionType.badCertificate:
+        return DataSource.UNKNOWN.getFailure();
+      case DioExceptionType.badResponse:
+        return DataSource.BAD_REQUEST.getFailure();
+      case DioExceptionType.cancel:
+        return DataSource.CANCEL.getFailure();
+      case DioExceptionType.connectionError:
+        return DataSource.NI_INTERNET_CONNETCTION.getFailure();
+      case DioExceptionType.unknown:
+        return DataSource.UNKNOWN.getFailure();
+    }
+  }
 }
 
 extension DataSourceExtension on DataSource {

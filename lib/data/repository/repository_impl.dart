@@ -10,6 +10,8 @@ import 'package:flutter_advanced/data/request/request.dart';
 import 'package:flutter_advanced/domain/model.dart';
 import 'package:flutter_advanced/domain/repository.dart';
 
+import '../network/error_handler.dart';
+
 class RepositoryImpl extends Repository {
   RemoteDataSource _remoteDataSource;
   NetworkInfo _networkInfo;
@@ -20,12 +22,16 @@ class RepositoryImpl extends Repository {
   @override
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest) async{
     if (await _networkInfo.isConnected) {
+      try {
         final response = await _remoteDataSource.login(loginRequest);
         if (response.status == 0) {
           return Right(response.toDomain());
         }else{
           return Left(Failure(409,response.message ?? "Error message From Api Side"));
         }
+      }catch (e) {
+         return Left(ErrorHandler.handle(e).failure);
+      }
     } else {
       return Left(Failure(501, "Please check your internet connection"));
     }
