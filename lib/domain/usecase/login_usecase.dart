@@ -4,6 +4,7 @@ import 'package:flutter_advanced/domain/model/model.dart';
 import 'package:flutter_advanced/domain/repository/repository.dart';
 import 'package:flutter_advanced/domain/usecase/base_usecase.dart';
 
+import '../../app/functions.dart';
 import '../../data/request/request.dart';
 
 class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
@@ -12,9 +13,10 @@ class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
   LoginUseCase(this._repository);
 
   @override
-  Future<Either<Failure, Authentication>> execute(LoginUseCaseInput input) {
+  Future<Either<Failure, Authentication>> execute(LoginUseCaseInput input)async {
+    DeviceInfo deviceInfo = await getDeviceInfo();
     return _repository
-        .login(LoginRequest(input.email, input.password, "imei", "deviceType"));
+        .login(LoginRequest(input.email, input.password, deviceInfo.identifier,deviceInfo.name ));
   }
 }
 
