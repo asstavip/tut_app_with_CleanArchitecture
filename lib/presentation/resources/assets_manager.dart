@@ -8,4 +8,5 @@ class ImageAssets {
   static const String solidCircleIc = 'assets/images/solid_circle_ic.svg';
   static const String leftArrowIc = 'assets/images/left_arrow_ic.svg';
   static const String rightArrowIc = 'assets/images/right_arrow_ic.svg';
+  static const String loginIc = 'assets/images/login_ic.png';
 }

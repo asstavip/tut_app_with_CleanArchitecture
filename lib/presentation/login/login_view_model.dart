@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_advanced/domain/usecase/login_usecase.dart';
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/common/freezed_data_classes.dart';
 
@@ -11,6 +12,10 @@ class LoginViewModel
       StreamController<String>.broadcast();
 
   var loginObject = LoginObject(email: '', password: '');
+
+  LoginUseCase? _loginUseCase;
+
+  LoginViewModel(this._loginUseCase);
 
   @override
   void dispose() {
@@ -39,9 +44,18 @@ class LoginViewModel
       .map((password) => _isPasswordValid(password));
 
   @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  login() async {
+    (await _loginUseCase?.execute(
+            LoginUseCaseInput(loginObject.email, loginObject.password)))
+        ?.fold(
+            (failure) => {
+                  // TODO : handle failure
+                  print(failure.message)
+                },
+            (data) => {
+                  // TODO : handle data
+                  print(data.customer)
+                });
   }
 
   @override
@@ -53,7 +67,8 @@ class LoginViewModel
   @override
   setPassword(String password) {
     inputPassword.add(password);
-    loginObject = loginObject.copyWith(password: password); // data class operation same as kotlin
+    loginObject = loginObject.copyWith(
+        password: password); // data class operation same as kotlin
   }
 
   bool _isPasswordValid(String password) {

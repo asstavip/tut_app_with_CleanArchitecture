@@ -66,7 +66,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               for (int i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
                   padding: const EdgeInsets.all(AppPadding.p8),
-                  child: _getProperCircle(i,sliderViewObject.currentIndex),
+                  child: _getProperCircle(i, sliderViewObject.currentIndex),
                 ),
             ],
           ),
@@ -144,7 +144,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     }
   }
 
-
   @override
   void dispose() {
     _onBoardingViewModel.dispose();
@@ -154,6 +153,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
 class OnBoardingPage extends StatelessWidget {
   final SliderObject sliderObject;
+
   const OnBoardingPage({required this.sliderObject, super.key});
 
   @override

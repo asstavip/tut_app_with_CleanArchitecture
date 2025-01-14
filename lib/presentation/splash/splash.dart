@@ -5,6 +5,7 @@ import 'package:flutter_advanced/presentation/resources/assets_manager.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
 
 import '../resources/routes_manager.dart';
+
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
@@ -30,15 +31,20 @@ class _SplashViewState extends State<SplashView> {
   _startDelay() {
     _timer = Timer(const Duration(seconds: 3), _goNext);
   }
+
   _goNext() {
     Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPallete.primaryOrange,
-      body: Center(child: Image(image: const AssetImage(ImageAssets.splashLogo),)),
+      body: Center(
+        child: Image(
+          image: const AssetImage(ImageAssets.splashLogo),
+        ),
+      ),
     );
   }
-
 }
