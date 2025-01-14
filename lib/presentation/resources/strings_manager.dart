@@ -10,4 +10,5 @@ class AppStrings {
   static const String onBoardingSubTitle4 = 'Find a place for every moment #4';
   static const String skip = 'Skip';
   static const String next = 'Next';
+
 }
