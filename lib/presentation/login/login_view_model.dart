@@ -10,6 +10,8 @@ class LoginViewModel
       StreamController<String>.broadcast();
   StreamController _passwordStreamController =
       StreamController<String>.broadcast();
+  StreamController _allInputsAreValidStreamController =
+      StreamController<void>.broadcast();
 
   var loginObject = LoginObject(email: '', password: '');
 
@@ -19,9 +21,9 @@ class LoginViewModel
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailStreamController.close();
     _passwordStreamController.close();
+    _allInputsAreValidStreamController.close();
   }
 
   @override
@@ -36,12 +38,20 @@ class LoginViewModel
   Sink get inputPassword => _passwordStreamController.sink;
 
   @override
+  Sink get inputsAreValid => _allInputsAreValidStreamController.sink;
+
+  @override
   Stream<bool> get isEmailValid =>
       _emailStreamController.stream.map((email) => _isEmailValid(email));
 
   @override
   Stream<bool> get isPasswordValid => _passwordStreamController.stream
       .map((password) => _isPasswordValid(password));
+
+  Stream<bool> get isAllInputsAreValid =>
+      _allInputsAreValidStreamController.stream.map((_) =>
+          _isEmailValid(loginObject.email) &&
+          _isPasswordValid(loginObject.password));
 
   @override
   login() async {
@@ -97,6 +107,8 @@ abstract class LoginViewModelInputs {
   Sink get inputEmail;
 
   Sink get inputPassword;
+
+  Sink get inputsAreValid;
 }
 
 abstract class LoginViewModelOutputs {

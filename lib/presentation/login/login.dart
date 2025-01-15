@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/login/login_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
+import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/resources/values_manager.dart';
 
 import '../resources/assets_manager.dart';
+import '../resources/font_manager.dart';
+import '../resources/routes_manager.dart';
+import '../resources/style_manager.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -35,11 +39,12 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return _getContentWidget();
   }
 
   Widget _getContentWidget() {
     return Scaffold(
+      backgroundColor: ColorPallete.primaryWhite,
       body: Container(
         padding: EdgeInsets.only(top: AppPadding.p100),
         color: ColorPallete.primaryWhite,
@@ -62,19 +67,103 @@ class _LoginState extends State<Login> {
                     stream: _viewModel.isEmailValid,
                     builder: (context, snapshot) {
                       return TextFormField(
+                        style: TextStyle(color: ColorPallete.primaryGray),
+                        cursorColor: ColorPallete.primaryOrange,
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: "Email",
-                          hintText: "Enter your email",
-                          errorText: snapshot.data == false
-                              ? "Please enter a valid email"
-                              : null,
+                          labelStyle:
+                              TextStyle(color: ColorPallete.primaryGray),
+                          focusColor: ColorPallete.primaryOrange,
+                          labelText: AppStrings.email,
+                          hintText: AppStrings.hintEmail,
+                          errorText: snapshot.data == true
+                              ? null
+                              : AppStrings.emailError,
+                          filled: true,
                         ),
                       );
                     },
                   ),
                 ),
+                SizedBox(
+                  height: AppSize.s28,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: StreamBuilder<bool>(
+                    stream: _viewModel.isPasswordValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        style: TextStyle(color: ColorPallete.primaryGray),
+                        cursorColor: ColorPallete.primaryOrange,
+                        controller: _passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                          labelStyle:
+                              TextStyle(color: ColorPallete.primaryGray),
+                          focusColor: ColorPallete.primaryOrange,
+                          labelText: AppStrings.password,
+                          hintText: AppStrings.hintPassword,
+                          errorText: snapshot.data == true
+                              ? null
+                              : AppStrings.passwordError,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: AppSize.s28,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: StreamBuilder<bool>(
+                    stream: _viewModel.isPasswordValid,
+                    builder: (context, snapshot) {
+                      return SizedBox(
+                        width: double.infinity,
+                        height: AppSize.s40,
+                        child: ElevatedButton(
+                          onPressed: snapshot.data == true
+                              ? () {
+                                  _viewModel.login();
+                                }
+                              : null,
+                          child: Text(
+                            AppStrings.login,
+                            style: getMediumStyle(
+                                color: ColorPallete.primaryWhite,
+                                fontSize: FontSizeManager.s20),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(padding: EdgeInsets.symmetric(vertical: AppPadding.p8,horizontal: AppPadding.p28),child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, Routes.forgotPasswordRoute);
+                      },
+                      child: Text(
+                        AppStrings.forgotPassword,
+                        style: getMediumStyle(color: ColorPallete.primaryOrange),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, Routes.registerRoute);
+                      },
+                      child: Text(
+                        AppStrings.registerText,
+                        style: getMediumStyle(color: ColorPallete.primaryOrange),
+                      ),
+                    ),
+                  ],
+                ),),
               ],
             ),
           ),
