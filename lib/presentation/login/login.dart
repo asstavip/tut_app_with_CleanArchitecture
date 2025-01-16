@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced/app/di.dart';
+import 'package:flutter_advanced/data/data_source/remote_data_source.dart';
+import 'package:flutter_advanced/domain/usecase/login_usecase.dart';
 import 'package:flutter_advanced/presentation/login/login_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/resources/values_manager.dart';
 
+import '../../data/repository/repository_impl.dart';
+import '../../domain/repository/repository.dart';
 import '../resources/assets_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/routes_manager.dart';
@@ -17,11 +22,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  LoginViewModel _viewModel = LoginViewModel(null); // TODO: remove null
-
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  // using get_it to get the instance of the view model
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+
 
   _bind() {
     _viewModel.start();

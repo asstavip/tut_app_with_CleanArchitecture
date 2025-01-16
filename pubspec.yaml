@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.3.5
   device_info_plus: ^11.2.1
   freezed: ^2.5.8
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_lints: ^5.0.0
