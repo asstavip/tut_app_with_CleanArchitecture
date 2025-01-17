@@ -18,7 +18,7 @@ class DioFactory {
 
   Future<Dio> getDio() async {
     Dio dio = Dio();
-    int _timeout = 1;
+
     String language = await _appPreferences.getAppLanguage();
     Map<String, String> headers = {
       CONTENT_TYPE: APPLICATION_JSON,
@@ -29,8 +29,8 @@ class DioFactory {
 
     dio.options = BaseOptions(
       baseUrl: Constant.baseUrl,
-      connectTimeout: Duration(minutes: _timeout),
-      receiveTimeout: Duration(minutes: _timeout),
+      connectTimeout: Duration(minutes: Constant.API_TIMEOUT),
+      receiveTimeout: Duration(minutes: Constant.API_TIMEOUT),
       headers: headers,
     );
 

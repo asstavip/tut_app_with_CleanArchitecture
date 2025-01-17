@@ -1,11 +1,11 @@
 // extensions on String
 
 import 'package:flutter_advanced/data/mapper/mapper.dart';
-
+import 'package:flutter_advanced/app/constant.dart';
 extension NonNullString on String? {
   String orEmpty() {
     if (this == null) {
-      return EMPTY;
+      return Constant.EMPTY;
     } else {
       return this!;
     }
@@ -17,7 +17,7 @@ extension NonNullString on String? {
 extension NonNullInteger on int? {
   int orZero() {
     if (this == null) {
-      return ZERO;
+      return Constant.ZERO;
     } else {
       return this!;
     }
