@@ -10,3 +10,9 @@ class ImageAssets {
   static const String rightArrowIc = 'assets/images/right_arrow_ic.svg';
   static const String loginIc = 'assets/images/login_ic.png';
 }
+
+class JsonAssets {
+  static const String loading = 'assets/lottie_animation/loading.json';
+  static const String empty = 'assets/lottie_animation/empty.json';
+  static const String error = 'assets/lottie_animation/error.json';
+}

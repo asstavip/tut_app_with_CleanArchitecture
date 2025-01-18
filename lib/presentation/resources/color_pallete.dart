@@ -9,6 +9,9 @@ class ColorPallete {
   static const Color primaryWhite = Color(0xFFFFFFFF);
   static Color secondaryWhite = colorFromHex('#F5F5F5');
   static const Color errorRed = Color(0xFFE61F34);
+  static const Color black = Color(0xFF000000);
+  static const Color transparentBlack = Colors.black26;
+  static const Color transparent = Colors.transparent;
 }
 
 Color colorFromHex(String hexColor) {

@@ -28,4 +28,6 @@ class AppStrings {
   static const String settings = 'Settings';
   static const String welcome = 'Welcome';
   static const String loading = 'Loading...';
+  static const String retry= 'Retry again later';
+  static const String ok = 'Ok';
 }
