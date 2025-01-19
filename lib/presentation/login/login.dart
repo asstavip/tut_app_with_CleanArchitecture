@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/di.dart';
-import 'package:flutter_advanced/data/data_source/remote_data_source.dart';
-import 'package:flutter_advanced/domain/usecase/login_usecase.dart';
+import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:flutter_advanced/presentation/login/login_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/resources/values_manager.dart';
 
-import '../../data/repository/repository_impl.dart';
-import '../../domain/repository/repository.dart';
 import '../resources/assets_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/routes_manager.dart';
@@ -28,7 +25,6 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
 
-
   _bind() {
     _viewModel.start();
     _emailController
@@ -45,13 +41,20 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      backgroundColor: ColorPallete.primaryWhite,
+      body: StreamBuilder(
+          stream: _viewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data
+                    ?.getScreenWidget(context, _getContentWidget(), _viewModel.login()) ??
+                _getContentWidget();
+          }),
+    );
   }
 
   Widget _getContentWidget() {
-    return Scaffold(
-      backgroundColor: ColorPallete.primaryWhite,
-      body: Container(
+    return Container(
         padding: EdgeInsets.only(top: AppPadding.p100),
         color: ColorPallete.primaryWhite,
         child: SingleChildScrollView(
@@ -147,35 +150,42 @@ class _LoginState extends State<Login> {
                     },
                   ),
                 ),
-                Padding(padding: EdgeInsets.symmetric(vertical: AppPadding.p8,horizontal: AppPadding.p28),child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, Routes.forgotPasswordRoute);
-                      },
-                      child: Text(
-                        AppStrings.forgotPassword,
-                        style: getMediumStyle(color: ColorPallete.primaryOrange),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: AppPadding.p8, horizontal: AppPadding.p28),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, Routes.forgotPasswordRoute);
+                        },
+                        child: Text(
+                          AppStrings.forgotPassword,
+                          style:
+                              getMediumStyle(color: ColorPallete.primaryOrange),
+                        ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, Routes.registerRoute);
-                      },
-                      child: Text(
-                        AppStrings.registerText,
-                        style: getMediumStyle(color: ColorPallete.primaryOrange),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, Routes.registerRoute);
+                        },
+                        child: Text(
+                          AppStrings.registerText,
+                          style:
+                              getMediumStyle(color: ColorPallete.primaryOrange),
+                        ),
                       ),
-                    ),
-                  ],
-                ),),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   @override
