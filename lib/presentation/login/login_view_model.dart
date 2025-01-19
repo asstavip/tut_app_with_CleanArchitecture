@@ -4,8 +4,10 @@ import 'package:flutter_advanced/domain/usecase/login_usecase.dart';
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/common/freezed_data_classes.dart';
 
-class LoginViewModel
-    implements BaseViewModel, LoginViewModelInputs, LoginViewModelOutputs {
+import '../common/state_renderer/state_renderer_impl.dart';
+
+class LoginViewModel extends BaseViewModel
+    implements LoginViewModelInputs, LoginViewModelOutputs {
   StreamController _emailStreamController =
       StreamController<String>.broadcast();
   StreamController _passwordStreamController =
@@ -21,6 +23,7 @@ class LoginViewModel
 
   @override
   void dispose() {
+    super.dispose();
     _emailStreamController.close();
     _passwordStreamController.close();
     _allInputsAreValidStreamController.close();
@@ -28,7 +31,8 @@ class LoginViewModel
 
   @override
   void start() {
-    // TODO: implement start
+    // view model should tell the view please show content state
+    inputState.add(ContentState());
   }
 
   @override

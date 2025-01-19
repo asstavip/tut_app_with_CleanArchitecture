@@ -5,11 +5,8 @@ import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/assets_manager.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 
-class OnboardingViewModel
-    implements
-        BaseViewModel,
-        OnboardingViewModelInputs,
-        OnboardingViewModelOutputs {
+class OnboardingViewModel extends BaseViewModel
+    implements OnboardingViewModelInputs, OnboardingViewModelOutputs {
   final StreamController _streamController =
       StreamController<SliderViewObject>();
 
@@ -79,7 +76,9 @@ class OnboardingViewModel
 
 abstract class OnboardingViewModelInputs {
   void goNext();
+
   void goPrevious();
+
   void onPageChanged(int index);
 
   Sink get inputSliderViewObject;
