@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
             return snapshot.data
-                    ?.getScreenWidget(context, _getContentWidget(), _viewModel.login()) ??
+                    ?.getScreenWidget(context, _getContentWidget(), _viewModel.login) ??
                 _getContentWidget();
           }),
     );

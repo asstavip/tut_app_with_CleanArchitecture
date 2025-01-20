@@ -41,7 +41,7 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _getStateWidget(BuildContext context) {
-    switch (StateRendererType) {
+    switch (type) {
       case StateRendererType.popupLoadingState:
         return _getPopupDialog(context,[ _getAnimatedImage(JsonAssets.loading)]);
       case StateRendererType.popupErrorState:
@@ -54,9 +54,7 @@ class StateRenderer extends StatelessWidget {
         return _getFullScreenEmptyState();
       case StateRendererType.contentScreenState:
         return Placeholder();
-      default:
-        return Placeholder();
-    }
+      }
   }
 
   Widget _getItemsColumn(List<Widget> children) {
@@ -144,7 +142,7 @@ class StateRenderer extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              if (StateRendererType == StateRendererType.fullScreenErrorState) {
+              if (type == StateRendererType.fullScreenErrorState) {
                 // call to retry function
                 retryActionFunction.call();
               } else {

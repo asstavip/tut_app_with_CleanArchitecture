@@ -97,4 +97,6 @@ flutter:
     - assets/images/2.0x/
     - assets/images/3.0x/
     - assets/images/4.0x/
-    - assets/lottie_animation/
+    - assets/lottie_animation/loading.json
+    - assets/lottie_animation/error.json
+    - assets/lottie_animation/empty.json

@@ -69,47 +69,49 @@ class EmptyState extends FlowState {
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
       Function retryActionFunction) {
-    switch (runtimeType) {
-      case LoadingState _:
-        if (getStateRendererType() == StateRendererType.popupLoadingState) {
-          // show pop up loading
-          showPopUp(context, getStateRendererType(), getMessage());
-          // show content ui of the screen
-          return contentScreenWidget;
-        } else {
-          // full screen loading state
-          return StateRenderer(
-            type: getStateRendererType(),
-            retryActionFunction: retryActionFunction,
-            message: getMessage(),
-          );
-        }
-      case ErrorState _:
-        _dismissDialog(context);
-        if (getStateRendererType() == StateRendererType.popupErrorState) {
-          // show pop up error
-          showPopUp(context, getStateRendererType(), getMessage());
-          // show content ui of the screen
-          return contentScreenWidget;
-        } else {
-          // full screen error state
-          return StateRenderer(
-            type: getStateRendererType(),
-            retryActionFunction: retryActionFunction,
-          );
-        }
-      case ContentState _:
-        _dismissDialog(context);
+    print('getScreenWidget called with state: ${runtimeType}');
+    if (this is LoadingState) {
+      print('LoadingState detected');
+      if (getStateRendererType() == StateRendererType.popupLoadingState) {
+        print('popupLoadingState detected');
+        showPopUp(context, getStateRendererType(), getMessage());
         return contentScreenWidget;
-      case EmptyState _:
+      } else {
         return StateRenderer(
           type: getStateRendererType(),
-          retryActionFunction: () {},
+          retryActionFunction: retryActionFunction,
           message: getMessage(),
         );
-      default:
-        _dismissDialog(context);
+      }
+    } else if (this is ErrorState) {
+      print('ErrorState detected');
+      _dismissDialog(context);
+      if (getStateRendererType() == StateRendererType.popupErrorState) {
+        print('popupErrorState detected');
+        showPopUp(context, getStateRendererType(), getMessage());
         return contentScreenWidget;
+      } else {
+        return StateRenderer(
+          type: getStateRendererType(),
+          retryActionFunction: retryActionFunction,
+          message: getMessage(),
+        );
+      }
+    } else if (this is ContentState) {
+      print('ContentState detected');
+      _dismissDialog(context);
+      return contentScreenWidget;
+    } else if (this is EmptyState) {
+      print('EmptyState detected');
+      return StateRenderer(
+        type: getStateRendererType(),
+        retryActionFunction: () {},
+        message: getMessage(),
+      );
+    } else {
+      print('Default case detected');
+      _dismissDialog(context);
+      return contentScreenWidget;
     }
   }
 
@@ -125,6 +127,8 @@ extension FlowStateExtension on FlowState {
   showPopUp(BuildContext context, StateRendererType stateRendererType,
       String message) {
     {
+      print(
+          'showPopUp called with type: $stateRendererType and message: $message');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
           context: context,
@@ -139,5 +143,4 @@ extension FlowStateExtension on FlowState {
       });
     }
   }
-
 }
