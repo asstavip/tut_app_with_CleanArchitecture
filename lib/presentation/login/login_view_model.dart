@@ -9,16 +9,17 @@ import '../common/state_renderer/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel
     implements LoginViewModelInputs, LoginViewModelOutputs {
-  StreamController _emailStreamController =
+  final StreamController _emailStreamController =
       StreamController<String>.broadcast();
-  StreamController _passwordStreamController =
+  final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
-  StreamController _allInputsAreValidStreamController =
+  final StreamController _allInputsAreValidStreamController =
       StreamController<void>.broadcast();
+  final StreamController isUserLoggedInSuccessfullyStreamController = StreamController<bool>();
 
   var loginObject = LoginObject(email: '', password: '');
 
-  LoginUseCase? _loginUseCase;
+  final LoginUseCase? _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
 
@@ -28,6 +29,7 @@ class LoginViewModel extends BaseViewModel
     _emailStreamController.close();
     _passwordStreamController.close();
     _allInputsAreValidStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -66,10 +68,15 @@ class LoginViewModel extends BaseViewModel
       final result = await _loginUseCase
           ?.execute(LoginUseCaseInput(loginObject.email, loginObject.password));
       result?.fold((failure) {
+        // left -> failure
         inputState.add(
             ErrorState(StateRendererType.popupErrorState, failure.message));
       }, (data) {
+        // right -> data (success)
+        // content
         inputState.add(ContentState());
+        // navigate to main screen
+        isUserLoggedInSuccessfullyStreamController.add(true);
       });
     } catch (e) {
       inputState
