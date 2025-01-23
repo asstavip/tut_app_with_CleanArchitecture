@@ -62,20 +62,19 @@ class LoginViewModel extends BaseViewModel
   login() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
-    (await _loginUseCase?.execute(
-            LoginUseCaseInput(loginObject.email, loginObject.password)))
-        ?.fold(
-            (failure) => {
-                  // TODO : handle failure
-                  inputState.add(ErrorState(
-                      StateRendererType.popupErrorState, failure.message)),
-                  print(failure.message)
-                },
-            (data) => {
-                  // TODO : handle data
-                  inputState.add(ContentState()),
-                  print(data.customer)
-                });
+    try {
+      final result = await _loginUseCase
+          ?.execute(LoginUseCaseInput(loginObject.email, loginObject.password));
+      result?.fold((failure) {
+        inputState.add(
+            ErrorState(StateRendererType.popupErrorState, failure.message));
+      }, (data) {
+        inputState.add(ContentState());
+      });
+    } catch (e) {
+      inputState
+          .add(ErrorState(StateRendererType.popupErrorState, e.toString()));
+    }
   }
 
   @override

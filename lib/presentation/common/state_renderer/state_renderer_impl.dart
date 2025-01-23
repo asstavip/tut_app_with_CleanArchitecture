@@ -66,81 +66,77 @@ class EmptyState extends FlowState {
   String getMessage() => message;
 }
 
+bool _isDialogShowing = false;
+
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
       Function retryActionFunction) {
     print('getScreenWidget called with state: ${runtimeType}');
-    if (this is LoadingState) {
-      print('LoadingState detected');
-      if (getStateRendererType() == StateRendererType.popupLoadingState) {
-        print('popupLoadingState detected');
-        showPopUp(context, getStateRendererType(), getMessage());
+    switch (runtimeType) {
+      case LoadingState:
+        print('LoadingState detected');
+        if (getStateRendererType() == StateRendererType.popupLoadingState) {
+          print('popupLoadingState detected');
+          if (!_isDialogShowing) {
+            _isDialogShowing = true;
+            showPopUp(context, getStateRendererType(), getMessage());
+          }
+          return contentScreenWidget;
+        } else {
+          return StateRenderer(
+            type: getStateRendererType(),
+            retryActionFunction: retryActionFunction,
+            message: getMessage(),
+          );
+        }
+      case ErrorState:
+        print('ErrorState detected');
+        _dismissDialog(context);
+        if (!_isDialogShowing) {
+          _isDialogShowing = true;
+          showPopUp(context, getStateRendererType(), getMessage());
+        }
         return contentScreenWidget;
-      } else {
+      case ContentState:
+        print('ContentState detected');
+        _dismissDialog(context);
+        return contentScreenWidget;
+      case EmptyState:
+        print('EmptyState detected');
         return StateRenderer(
           type: getStateRendererType(),
-          retryActionFunction: retryActionFunction,
+          retryActionFunction: () {},
           message: getMessage(),
         );
-      }
-    } else if (this is ErrorState) {
-      print('ErrorState detected');
-      _dismissDialog(context);
-      if (getStateRendererType() == StateRendererType.popupErrorState) {
-        print('popupErrorState detected');
-        showPopUp(context, getStateRendererType(), getMessage());
+      default:
+        print('Default case detected');
+        _dismissDialog(context);
         return contentScreenWidget;
-      } else {
-        return StateRenderer(
-          type: getStateRendererType(),
-          retryActionFunction: retryActionFunction,
-          message: getMessage(),
-        );
-      }
-    } else if (this is ContentState) {
-      print('ContentState detected');
-      _dismissDialog(context);
-      return contentScreenWidget;
-    } else if (this is EmptyState) {
-      print('EmptyState detected');
-      return StateRenderer(
-        type: getStateRendererType(),
-        retryActionFunction: () {},
-        message: getMessage(),
-      );
-    } else {
-      print('Default case detected');
-      _dismissDialog(context);
-      return contentScreenWidget;
     }
   }
 
-  _isCurrentContainDialogShowing(BuildContext context) =>
-      ModalRoute.of(context)?.isCurrent != true;
-
   _dismissDialog(BuildContext context) {
-    if (_isCurrentContainDialogShowing(context)) {
+    if (_isDialogShowing) {
+      _isDialogShowing = false;
       Navigator.of(context, rootNavigator: true).pop(true);
     }
   }
 
-  showPopUp(BuildContext context, StateRendererType stateRendererType,
+  void showPopUp(BuildContext context, StateRendererType stateRendererType,
       String message) {
-    {
-      print(
-          'showPopUp called with type: $stateRendererType and message: $message');
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return StateRenderer(
+    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) => StateRenderer(
               type: stateRendererType,
               message: message,
-              retryActionFunction: () {},
-            );
-          },
-        );
-      });
-    }
+              retryActionFunction: () {
+                if (stateRendererType == StateRendererType.popupErrorState) {
+                  _isDialogShowing = false;
+                  Navigator.of(context, rootNavigator: true).pop(true);
+                }
+              },
+            )));
+    _isDialogShowing = true;
   }
 }
