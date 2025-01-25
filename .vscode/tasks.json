@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dart",
+			"command": "dart",
+			"cwd": "",
+			"args": [
+				"doc",
+				"."
+			],
+			"problemMatcher": [],
+			"label": "dart: dart doc .",
+			"detail": "",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "Run Flutter App",
+			"type": "shell",
+			"command": "flutter run",
+			"group": {
+			  "kind": "build",
+			  "isDefault": true
+			},
+			"presentation": {
+			  "reveal": "always",
+			  "panel": "shared"
+			},
+			"problemMatcher": []
+		  }
+	]
+}

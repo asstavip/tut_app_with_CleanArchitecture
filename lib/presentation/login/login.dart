@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_advanced/app/app_prefs.dart';
 import 'package:flutter_advanced/app/di.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:flutter_advanced/presentation/login/login_view_model.dart';
@@ -25,6 +26,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+    final AppPreferences _appPreferences = instance<AppPreferences>();
 
   _bind() {
     _viewModel.start();
@@ -38,6 +40,7 @@ class _LoginState extends State<Login> {
       if (isLoggedInSuccessfully) {
         // navigate to main screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
+          _appPreferences.setUserLoggedIn();
           Navigator.of(context)
               .pushNamedAndRemoveUntil(Routes.mainRoute, (route) => false);
         });
@@ -97,7 +100,7 @@ class _LoginState extends State<Login> {
                         focusColor: ColorPallete.primaryOrange,
                         labelText: AppStrings.email,
                         hintText: AppStrings.hintEmail,
-                        errorText: snapshot.data == true
+                        errorText: (snapshot.data ?? true)
                             ? null
                             : AppStrings.emailError,
                         filled: true,
@@ -124,7 +127,7 @@ class _LoginState extends State<Login> {
                         focusColor: ColorPallete.primaryOrange,
                         labelText: AppStrings.password,
                         hintText: AppStrings.hintPassword,
-                        errorText: snapshot.data == true
+                        errorText: (snapshot.data ?? true)
                             ? null
                             : AppStrings.passwordError,
                       ),
@@ -144,7 +147,7 @@ class _LoginState extends State<Login> {
                       width: double.infinity,
                       height: AppSize.s40,
                       child: ElevatedButton(
-                        onPressed: snapshot.data == true
+                        onPressed: (snapshot.data ?? false)
                             ? () {
                                 _viewModel.login();
                               }
