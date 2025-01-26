@@ -71,12 +71,9 @@ bool _isDialogShowing = false;
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
       Function retryActionFunction) {
-    print('getScreenWidget called with state: ${runtimeType}');
     switch (runtimeType) {
       case LoadingState:
-        print('LoadingState detected');
         if (getStateRendererType() == StateRendererType.popupLoadingState) {
-          print('popupLoadingState detected');
           if (!_isDialogShowing) {
             _isDialogShowing = true;
             showPopUp(context, getStateRendererType(), getMessage());
@@ -90,7 +87,6 @@ extension FlowStateExtension on FlowState {
           );
         }
       case ErrorState:
-        print('ErrorState detected');
         _dismissDialog(context);
         if (!_isDialogShowing) {
           _isDialogShowing = true;
@@ -98,27 +94,27 @@ extension FlowStateExtension on FlowState {
         }
         return contentScreenWidget;
       case ContentState:
-        print('ContentState detected');
         _dismissDialog(context);
         return contentScreenWidget;
       case EmptyState:
-        print('EmptyState detected');
         return StateRenderer(
           type: getStateRendererType(),
           retryActionFunction: () {},
           message: getMessage(),
         );
       default:
-        print('Default case detected');
         _dismissDialog(context);
         return contentScreenWidget;
     }
   }
 
-  _dismissDialog(BuildContext context) {
+  _dismissDialog(BuildContext context, [Function? onDismissed]) {
     if (_isDialogShowing) {
       _isDialogShowing = false;
       Navigator.of(context, rootNavigator: true).pop(true);
+      if (onDismissed != null) {
+        onDismissed();
+      }
     }
   }
 

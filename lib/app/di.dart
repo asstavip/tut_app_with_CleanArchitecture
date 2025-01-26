@@ -2,7 +2,9 @@ import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart
 import 'package:dio/dio.dart';
 import 'package:flutter_advanced/app/app_prefs.dart';
 import 'package:flutter_advanced/data/network/dio_factory.dart';
+import 'package:flutter_advanced/domain/usecase/forget_password_usecase.dart';
 import 'package:flutter_advanced/domain/usecase/login_usecase.dart';
+import 'package:flutter_advanced/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,11 +42,19 @@ Future<void> initAppModule() async {
 
   // repository
   instance.registerLazySingleton<Repository>(() => RepositoryImpl(instance<RemoteDataSource>(), instance<NetworkInfo>()));
+  
 }
 
 Future<void> initLoginModule() async {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory(() => LoginUseCase(instance<Repository>()));
     instance.registerFactory(() => LoginViewModel(instance()));
+  }
+}
+
+initForgotPasswordModule(){
+  if(!GetIt.I.isRegistered<ForgetPasswordUseCase>()){
+    instance.registerFactory<ForgetPasswordUseCase>(() => ForgetPasswordUseCase(instance()));
+    instance.registerFactory<ForgotPasswordViewModel>(() => ForgotPasswordViewModel(instance()));
   }
 }

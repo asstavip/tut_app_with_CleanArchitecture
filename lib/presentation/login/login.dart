@@ -171,7 +171,7 @@ class _LoginState extends State<Login> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
+                        Navigator.pushNamed(
                             context, Routes.forgotPasswordRoute);
                       },
                       child: Text(

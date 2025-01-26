@@ -5,8 +5,6 @@ import 'package:flutter_advanced/app/extensions.dart';
 import 'package:flutter_advanced/data/responses/responses.dart';
 import 'package:flutter_advanced/domain/model/model.dart';
 
-
-
 extension CustomerResponseMapper on CustomerResponse? {
   Customer toDomain() {
     return Customer(
@@ -17,7 +15,6 @@ extension CustomerResponseMapper on CustomerResponse? {
   }
 }
 
-
 extension ContactsResponseMapper on ContactsResponse? {
   Contact toDomain() {
     return Contact(
@@ -26,15 +23,18 @@ extension ContactsResponseMapper on ContactsResponse? {
       this?.link?.orEmpty() ?? Constant.EMPTY,
     );
   }
-} 
+}
 
-extension AuthenticationResponseMapper on AuthenticationResponse?{
-
-  Authentication toDomain(){
+extension AuthenticationResponseMapper on AuthenticationResponse? {
+  Authentication toDomain() {
     return Authentication(
-      this?.customer?.toDomain() ,
-      this?.contacts?.toDomain() ,
+      this?.customer?.toDomain(),
+      this?.contacts?.toDomain(),
     );
   }
-
+}
+extension ForgetPasswordResponseMapper on ForgotPasswordResponse? {
+  String toDomain() {
+    return this?.support?.orEmpty() ?? Constant.EMPTY;
+  }
 }

@@ -83,7 +83,11 @@ ThemeData getApplicationTheme() {
       bodySmall: getRegularStyle(
           color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
     ),
-
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorPallete.primaryOrange,
+      selectionColor: ColorPallete.primaryLightOrange,
+      selectionHandleColor: ColorPallete.primaryOrange,
+    ),
     //input decoration theme(text from fields)
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(AppPadding.p8),

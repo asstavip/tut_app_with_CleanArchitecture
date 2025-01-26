@@ -12,6 +12,7 @@ class ColorPallete {
   static const Color black = Color(0xFF000000);
   static const Color transparentBlack = Colors.black26;
   static const Color transparent = Colors.transparent;
+  static const Color success = Colors.green;
 }
 
 Color colorFromHex(String hexColor) {

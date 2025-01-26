@@ -30,4 +30,6 @@ class AppStrings {
   static const String loading = 'Loading...';
   static const String retry= 'Retry again later';
   static const String ok = 'Ok';
+  static const String resetPassword = 'Reset Password';
+  static const String checkEmail = "Reset password link has been sent to your email";
 }
