@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
-    final AppPreferences _appPreferences = instance<AppPreferences>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   _bind() {
     _viewModel.start();
@@ -61,8 +61,8 @@ class _LoginState extends State<Login> {
       body: StreamBuilder(
           stream: _viewModel.outputState,
           builder: (context, snapshot) {
-            return snapshot.data?.getScreenWidget(
-                    context, _getContentWidget(), _viewModel.login) ??
+            return snapshot.data?.getScreenWidget(context, _getContentWidget(),
+                    _viewModel.login) ??
                 _getContentWidget();
           }),
     );

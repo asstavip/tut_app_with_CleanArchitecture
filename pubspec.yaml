@@ -100,3 +100,4 @@ flutter:
     - assets/lottie_animation/loading.json
     - assets/lottie_animation/error.json
     - assets/lottie_animation/empty.json
+    - assets/lottie_animation/success.json

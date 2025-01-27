@@ -18,7 +18,8 @@ enum StateRendererType {
   fullScreenErrorState,
   fullScreenEmptyState,
   // general state
-  contentScreenState
+  contentScreenState,
+  popupSuccessState
 }
 
 class StateRenderer extends StatelessWidget {
@@ -59,6 +60,13 @@ class StateRenderer extends StatelessWidget {
         return _getFullScreenEmptyState();
       case StateRendererType.contentScreenState:
         return Placeholder();
+      case StateRendererType.popupSuccessState:
+        return _getPopupDialog(context, [
+          _getAnimatedImage(JsonAssets.success),
+          _getMessage(title),
+          _getMessage(message),
+          _getRetryButton(AppStrings.ok, context)
+        ]);
     }
   }
 

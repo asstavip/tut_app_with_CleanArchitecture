@@ -15,4 +15,5 @@ class JsonAssets {
   static const String loading = 'assets/lottie_animation/loading.json';
   static const String empty = 'assets/lottie_animation/empty.json';
   static const String error = 'assets/lottie_animation/error.json';
+  static const String success = 'assets/lottie_animation/success.json';
 }

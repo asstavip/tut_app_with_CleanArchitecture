@@ -45,7 +45,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             return snapshot.data?.getScreenWidget(context, _getContentWidget(),
                     () {
                   _viewModel.forgotPassword('');
-                }, ) ??
+                }) ??
                 _getContentWidget();
           }),
     );

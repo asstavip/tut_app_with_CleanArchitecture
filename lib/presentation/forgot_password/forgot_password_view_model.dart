@@ -5,6 +5,7 @@ import 'package:flutter_advanced/domain/usecase/forget_password_usecase.dart';
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 
 import '../resources/color_pallete.dart';
 
@@ -23,10 +24,12 @@ abstract class ForgotPasswordViewModelOutputs {
 class ForgotPasswordViewModel extends BaseViewModel
     implements ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
   final ForgetPasswordUseCase _forgetPasswordUsecase;
-  final StreamController _emailStreamController =
+  final StreamController<String> _emailStreamController =
       StreamController<String>.broadcast();
-  final StreamController _isAllInputsValidStreamController =
+  final StreamController<void> _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
+
+
   ForgotPasswordViewModel(this._forgetPasswordUsecase);
 
   var email = '';
@@ -47,13 +50,14 @@ class ForgotPasswordViewModel extends BaseViewModel
   // output
   @override
   forgotPassword(String email) async {
+    // Show loading state
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     (await _forgetPasswordUsecase.execute(email)).fold((failure) {
-      inputState
-          .add(ErrorState(StateRendererType.popupErrorState, failure.message));
-    }, (r) {
-      inputState.add(ContentState());
+      inputState.add(
+          ErrorState(StateRendererType.popupErrorState, failure.message));
+    }, (supportMessage) {
+      inputState.add(SuccessState(supportMessage));
     });
   }
 
@@ -77,8 +81,7 @@ class ForgotPasswordViewModel extends BaseViewModel
 
   @override
   Stream<bool> get outputIsEmailValid =>
-      _isAllInputsValidStreamController.stream
-          .map((email) => isEmailValid(email));
+      _emailStreamController.stream.map((email) => isEmailValid(email));
 
   _isAllInputValid() {
     return isEmailValid(email);
@@ -87,5 +90,6 @@ class ForgotPasswordViewModel extends BaseViewModel
   _validate() {
     inputIsAllInputValid.add(null);
   }
+
 
 }

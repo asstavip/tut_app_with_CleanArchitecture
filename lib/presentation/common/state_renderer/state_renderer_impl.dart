@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/constant.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer.dart';
@@ -66,73 +68,74 @@ class EmptyState extends FlowState {
   String getMessage() => message;
 }
 
+class SuccessState extends FlowState {
+  final String message;
+  SuccessState(this.message);
+
+  @override
+  StateRendererType getStateRendererType() {
+    return StateRendererType.popupSuccessState;
+  }
+
+  @override
+  String getMessage() {
+    return message;
+  }
+}
+
 bool _isDialogShowing = false;
 
+// lib/presentation/common/state_renderer/state_renderer_impl.dart
 extension FlowStateExtension on FlowState {
-  Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
-      Function retryActionFunction) {
+  Widget getScreenWidget(BuildContext context, Widget contentScreenWidget, Function retryActionFunction) {
     switch (runtimeType) {
       case LoadingState:
-        if (getStateRendererType() == StateRendererType.popupLoadingState) {
-          if (!_isDialogShowing) {
-            _isDialogShowing = true;
-            showPopUp(context, getStateRendererType(), getMessage());
-          }
-          return contentScreenWidget;
-        } else {
-          return StateRenderer(
-            type: getStateRendererType(),
-            retryActionFunction: retryActionFunction,
-            message: getMessage(),
-          );
-        }
+        print('****************************LoadingState detected');
+        showPopUp(context, StateRendererType.popupLoadingState, 'Loading...');
+        return contentScreenWidget;
+      case SuccessState:
+        print('****************************SuccessState detected');
+        dismissDialog(context);
+        showPopUp(context, StateRendererType.popupSuccessState, (this as SuccessState).message);
+        return contentScreenWidget;
       case ErrorState:
-        _dismissDialog(context);
-        if (!_isDialogShowing) {
-          _isDialogShowing = true;
-          showPopUp(context, getStateRendererType(), getMessage());
-        }
+        print('****************************ErrorState detected');
+        dismissDialog(context);
+        showPopUp(context, StateRendererType.popupErrorState, (this as ErrorState).message);
         return contentScreenWidget;
       case ContentState:
-        _dismissDialog(context);
+        print('****************************ContentState detected');
+        dismissDialog(context);
         return contentScreenWidget;
-      case EmptyState:
-        return StateRenderer(
-          type: getStateRendererType(),
-          retryActionFunction: () {},
-          message: getMessage(),
-        );
       default:
-        _dismissDialog(context);
         return contentScreenWidget;
     }
   }
 
-  _dismissDialog(BuildContext context, [Function? onDismissed]) {
+  void dismissDialog(BuildContext context, [Function? onDismissed]) {
     if (_isDialogShowing) {
-      _isDialogShowing = false;
       Navigator.of(context, rootNavigator: true).pop(true);
+      _isDialogShowing = false;
+      print('****************************Dismissing dialog');
       if (onDismissed != null) {
         onDismissed();
       }
     }
   }
 
-  void showPopUp(BuildContext context, StateRendererType stateRendererType,
-      String message) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
+  void showPopUp(BuildContext context, StateRendererType stateRendererType, String message, {String title = ''}) {
+    print('****************************Showing popup of type: $stateRendererType with message: $message');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
         context: context,
-        barrierDismissible: false,
         builder: (BuildContext context) => StateRenderer(
-              type: stateRendererType,
-              message: message,
-              retryActionFunction: () {
-                if (stateRendererType == StateRendererType.popupErrorState) {
-                  _isDialogShowing = false;
-                  Navigator.of(context, rootNavigator: true).pop(true);
-                }
-              },
-            )));
-    _isDialogShowing = true;
+          type: stateRendererType,
+          message: message,
+          title: title,
+          retryActionFunction: () {},
+        ),
+      );
+      _isDialogShowing = true;
+    });
   }
 }
