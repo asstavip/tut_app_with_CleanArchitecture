@@ -2,12 +2,18 @@ class AppStrings {
   static const String noRouteFound = 'No Route Found';
   static const String onBoardingTitle1 = 'Discover the world around you #1';
   static const String onBoardingTitle2 = 'Find your best spot #2';
-  static const String onBoardingTitle3 = 'The best places are where friends and memories are made #3';
-  static const String onBoardingTitle4 = 'Get out there and find your happy place #4';
-  static const String onBoardingSubTitle1 = 'Find your inner peace at the best cafes #1';
-  static const String onBoardingSubTitle2 = 'Get your game on at the most epic gaming spots #2';
-  static const String onBoardingSubTitle3 = 'Find your rhythm at the grooviest music venues #3';
-  static const String onBoardingSubTitle4 = 'Get your zen on at the most serene yoga studios #4';
+  static const String onBoardingTitle3 =
+      'The best places are where friends and memories are made #3';
+  static const String onBoardingTitle4 =
+      'Get out there and find your happy place #4';
+  static const String onBoardingSubTitle1 =
+      'Find your inner peace at the best cafes #1';
+  static const String onBoardingSubTitle2 =
+      'Get your game on at the most epic gaming spots #2';
+  static const String onBoardingSubTitle3 =
+      'Find your rhythm at the grooviest music venues #3';
+  static const String onBoardingSubTitle4 =
+      'Get your zen on at the most serene yoga studios #4';
   static const String skip = 'Skip';
   static const String next = 'Next';
   static const String login = 'Login';
@@ -28,9 +34,12 @@ class AppStrings {
   static const String settings = 'Settings';
   static const String welcome = 'Welcome';
   static const String loading = 'Loading...';
-  static const String retry= 'Retry again later';
+  static const String retry = 'Retry again later';
   static const String ok = 'Ok';
   static const String resetPassword = 'Reset Password';
-  static const String checkEmail = "Reset password link has been sent to your email";
+  static const String checkEmail =
+      "Reset password link has been sent to your email";
   static const String success = 'Success';
+  static const String invalidUserName =
+      "User name should be more than 4 characters";
 }
