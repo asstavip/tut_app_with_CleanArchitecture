@@ -4,21 +4,22 @@ import 'dart:io';
 import 'package:flutter_advanced/domain/usecase/register_usecase.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 
+import '../../app/functions.dart';
 import '../base/base_view_model.dart';
 
 class RegisterViewModel extends BaseViewModel
     implements RegisterViewModelInputs, RegisterViewModelOutputs {
   StreamController userNameStreamController =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController mobileStreamController =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController emailStreamController = StreamController<String>.broadcast();
   StreamController passwordStreamController =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
   StreamController profilePictureStreamController =
-  StreamController<File>.broadcast();
+      StreamController<File>.broadcast();
   StreamController areAllInputsValidStreamController =
-  StreamController<void>.broadcast();
+      StreamController<void>.broadcast();
 
   // inputs
   final RegisterUsecase _registerUsecase;
@@ -56,42 +57,69 @@ class RegisterViewModel extends BaseViewModel
   Sink get inputUserName => userNameStreamController.sink;
 
   // outputs
+
+  /*
+  this is the output of the username
+   */
   @override
-  Stream<String?> get outputErrorEmail => throw UnimplementedError();
+  Stream<String?> get outputErrorUserName =>
+      userNameStreamController.stream.map((isUserNameValid) =>
+          isUserNameValid ? null : AppStrings.invalidUserName);
 
   @override
-  Stream<String?> get outputErrorMobile => throw UnimplementedError();
+  Stream<bool> get outputIsUserNameValid => userNameStreamController.stream
+      .map((userName) => _isUserNameValid(userName));
+
+  /*
+  this is the output of the email
+   */
 
   @override
-  Stream<String?> get outputErrorPassword => throw UnimplementedError();
+  Stream<String?> get outputErrorEmail => emailStreamController.stream
+      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailError);
 
   @override
-  Stream<String?> get outputErrorUserName => userNameStreamController.stream.map((isUserNameValid)=>
-  isUserNameValid ? null : AppStrings.invalidUserName
-  );
+  Stream<bool> get outputIsEmailValid =>
+      emailStreamController.stream.map((email) => isEmailValid(email));
+
+  /*
+  this is the output of the mobile
+   */
+  @override
+  Stream<String?> get outputErrorMobile => mobileStreamController.stream.map(
+      (isMobileValid) => isMobileValid ? null : AppStrings.invalidMobileNumber);
 
   @override
-  Stream<bool> get outputIsEmailValid => throw UnimplementedError();
+  Stream<bool> get outputIsMobileValid =>
+      mobileStreamController.stream.map((mobile) => _isMobileValid(mobile));
+
+  /*
+  this is the output of the password
+   */
+  @override
+  Stream<bool> get outputIsPasswordValid => passwordStreamController.stream
+      .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<bool> get outputIsMobileValid => throw UnimplementedError();
+  Stream<String?> get outputErrorPassword => passwordStreamController.stream
+      .map((isPassword) => isPassword ? null : AppStrings.invalidPassword);
 
   @override
-  Stream<bool> get outputIsPasswordValid => throw UnimplementedError();
+  Stream<File> get outputProfilePicture => profilePictureStreamController.stream
+      .map((profilePicture) => profilePicture);
 
-  @override
-  Stream<bool> get outputIsUserNameValid =>
-      userNameStreamController.stream.map((userName) =>
-          _isUserNameValid(userName));
-
-  @override
-  Stream<bool> get outputProfilePicture => throw UnimplementedError();
-
+  // _private functions
   bool _isUserNameValid(String userName) {
     return userName.length > 4;
   }
 
+  bool _isMobileValid(String mobile) {
+    return mobile.length >= 9;
+  }
 
+  bool _isPasswordValid(String password) {
+    return password.length >= 8;
+  }
 }
 
 abstract class RegisterViewModelInputs {
@@ -123,5 +151,5 @@ abstract class RegisterViewModelOutputs {
 
   Stream<String?> get outputErrorPassword;
 
-  Stream<bool> get outputProfilePicture;
+  Stream<File> get outputProfilePicture;
 }

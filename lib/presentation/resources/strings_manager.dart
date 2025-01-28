@@ -40,6 +40,8 @@ class AppStrings {
   static const String checkEmail =
       "Reset password link has been sent to your email";
   static const String success = 'Success';
+  static const String invalidMobileNumber = 'Enter a valid mobile number';
   static const String invalidUserName =
       "User name should be more than 4 characters";
+  static const String invalidPassword = "Password should be more than 8 characters";
 }
