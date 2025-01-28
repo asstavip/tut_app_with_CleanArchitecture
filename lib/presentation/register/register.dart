@@ -12,4 +12,10 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return const Placeholder();
   }
+
+  @override
+  void dispose() {
+    // TODO: call dispose of view model
+    super.dispose();
+  }
 }
