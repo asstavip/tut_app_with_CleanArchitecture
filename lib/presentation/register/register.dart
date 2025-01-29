@@ -1,5 +1,7 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_advanced/app/constant.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:flutter_advanced/presentation/register/register_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
@@ -71,21 +73,89 @@ class _RegisterState extends State<Register> {
 
   Widget _getContentWidget() {
     return Container(
-      padding: EdgeInsets.only(top: AppPadding.p100),
+      padding: EdgeInsets.only(top: AppPadding.p28),
       color: ColorPallete.primaryWhite,
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
+            spacing: AppSize.s18,
             children: [
               Center(
                 child: Image(
                   image: const AssetImage(ImageAssets.splashLogo),
                 ),
               ),
-              SizedBox(
-                height: AppSize.s28,
+              // * UserName Section
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                child: StreamBuilder<String?>(
+                  stream: _viewModel.outputErrorUserName,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      style: TextStyle(color: ColorPallete.primaryGray),
+                      cursorColor: ColorPallete.primaryOrange,
+                      controller: _userNameController,
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: ColorPallete.primaryGray),
+                          focusColor: ColorPallete.primaryOrange,
+                          labelText: AppStrings.username,
+                          hintText: AppStrings.hintUserName,
+                          errorText: (snapshot.data)
+                      ),
+                    );
+                  },
+                ),
               ),
+              // * Mobile Section + Country Code Picker
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
+                  child: Row(
+                    children: [
+                      // * Country Code Picker
+                      Expanded(
+                        flex: 1,
+                        child: CountryCodePicker(
+                          initialSelection: '+212',
+                          favorite: ['+212', 'MA'],
+                          showCountryOnly: true,
+                          hideMainText: true,
+                          showOnlyCountryWhenClosed: true,
+                          onChanged: (country) {
+                            print(country.dialCode);
+                            _viewModel.setCountryCode(country.code?? Constant.token);
+                          },
+                        ),
+                      ),
+                      // * Mobile Number
+                      Expanded(
+                        flex: 4,
+                        child: StreamBuilder<String?>(
+                          stream: _viewModel.outputErrorMobile,
+                          builder: (context, snapshot) {
+                            return TextFormField(
+                              style: TextStyle(color: ColorPallete.primaryGray),
+                              cursorColor: ColorPallete.primaryOrange,
+                              controller: _mobileController,
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                labelStyle: TextStyle(color: ColorPallete.primaryGray),
+                                focusColor: ColorPallete.primaryOrange,
+                                labelText: AppStrings.mobile,
+                                hintText: AppStrings.hintMobile,
+                                errorText: (snapshot.data)
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // * Email Section
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<String?>(
@@ -107,9 +177,7 @@ class _RegisterState extends State<Register> {
                   },
                 ),
               ),
-              SizedBox(
-                height: AppSize.s28,
-              ),
+              // * Password Section
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<String?>(
@@ -130,9 +198,7 @@ class _RegisterState extends State<Register> {
                   },
                 ),
               ),
-              SizedBox(
-                height: AppSize.s28,
-              ),
+              // * Register Button
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p28),
                 child: StreamBuilder<bool>(
@@ -148,7 +214,7 @@ class _RegisterState extends State<Register> {
                         }
                             : null,
                         child: Text(
-                          AppStrings.login,
+                          AppStrings.register,
                           style: getMediumStyle(
                               color: ColorPallete.primaryWhite,
                               fontSize: FontSizeManager.s20),
@@ -158,13 +224,14 @@ class _RegisterState extends State<Register> {
                   },
                 ),
               ),
+              // * Go to login screen when you have account
               Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: AppPadding.p8, horizontal: AppPadding.p28),
                 child: TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, Routes.registerRoute);
+                        context, Routes.loginRoute);
                   },
                   child: Text(
                     AppStrings.alreadyHaveAccount,

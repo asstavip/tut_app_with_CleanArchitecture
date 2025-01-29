@@ -28,6 +28,7 @@ class AppStrings {
   static const String emailError = 'Enter a valid email address';
   static const String passwordError = 'Enter a valid password';
   static const String hintEmail = "Enter your email";
+  static const String hintUserName = "Enter your User name";
   static const String hintPassword = "Enter your password";
   static const String register = 'Register';
   static const String home = 'Home';
@@ -43,7 +44,9 @@ class AppStrings {
   static const String invalidMobileNumber = 'Enter a valid mobile number';
   static const String invalidUserName =
       "User name should be more than 4 characters";
-  static const String invalidPassword = "Password should be more than 8 characters";
-
+  static const String invalidPassword =
+      "Password should be more than 8 characters";
   static const String alreadyHaveAccount = "Already have an account ? Login";
+  static const String mobile = "Mobile Number";
+  static const String hintMobile = "Enter your mobile number";
 }
