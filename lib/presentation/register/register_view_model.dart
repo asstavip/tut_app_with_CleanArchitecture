@@ -8,6 +8,8 @@ import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import '../../app/functions.dart';
 import '../base/base_view_model.dart';
 import '../common/freezed_data_classes.dart';
+import '../common/state_renderer/state_renderer.dart';
+import '../common/state_renderer/state_renderer_impl.dart';
 
 class RegisterViewModel extends BaseViewModel
     implements RegisterViewModelInputs, RegisterViewModelOutputs {
@@ -30,7 +32,9 @@ class RegisterViewModel extends BaseViewModel
   RegisterViewModel(this._registerUsecase);
 
   @override
-  void start() {}
+  void start() {
+
+  }
 
   @override
   void dispose() {
@@ -141,8 +145,27 @@ class RegisterViewModel extends BaseViewModel
   }
 
   @override
-  register() {
-    throw UnimplementedError();
+  register() async{
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popupLoadingState));
+    try {
+      final result = await _registerUsecase
+          .execute(RegisterUsecaseInput(registerObject.userName, registerObject.countryCode, registerObject.mobileNumber, registerObject.email, registerObject.password, registerObject.profilePicture));
+      result.fold((failure) {
+        // left -> failure
+        inputState.add(
+            ErrorState(StateRendererType.popupErrorState, failure.message));
+      }, (data) {
+        // right -> data (success)
+        // content
+        inputState.add(ContentState());
+        // navigate to main screen
+
+      });
+    } catch (e) {
+      inputState
+          .add(ErrorState(StateRendererType.popupErrorState, e.toString()));
+    }
   }
 
   @override
