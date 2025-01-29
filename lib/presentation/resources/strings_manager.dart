@@ -49,4 +49,7 @@ class AppStrings {
   static const String alreadyHaveAccount = "Already have an account ? Login";
   static const String mobile = "Mobile Number";
   static const String hintMobile = "Enter your mobile number";
+  static const String profilePicture = "Profile Picture";
+  static const String photoLibrary = "Photo From Library";
+  static const String camera = "Photo From Camera";
 }

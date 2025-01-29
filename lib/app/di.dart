@@ -8,6 +8,7 @@ import 'package:flutter_advanced/domain/usecase/register_usecase.dart';
 import 'package:flutter_advanced/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:flutter_advanced/presentation/register/register_view_model.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/data_source/remote_data_source.dart';
@@ -34,17 +35,19 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(DataConnectionChecker()));
   // dio
-  instance.registerLazySingleton<DioFactory>(() => DioFactory(instance<AppPreferences>()));
+  instance.registerLazySingleton<DioFactory>(
+      () => DioFactory(instance<AppPreferences>()));
   Dio dio = await instance<DioFactory>().getDio();
   // App Service Client
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   // remote data source
-  instance.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImplementer(instance<AppServiceClient>()));
+  instance.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImplementer(instance<AppServiceClient>()));
 
   // repository
-  instance.registerLazySingleton<Repository>(() => RepositoryImpl(instance<RemoteDataSource>(), instance<NetworkInfo>()));
-  
+  instance.registerLazySingleton<Repository>(() =>
+      RepositoryImpl(instance<RemoteDataSource>(), instance<NetworkInfo>()));
 }
 
 Future<void> initLoginModule() async {
@@ -54,16 +57,21 @@ Future<void> initLoginModule() async {
   }
 }
 
-initForgotPasswordModule(){
-  if(!GetIt.I.isRegistered<ForgetPasswordUseCase>()){
-    instance.registerFactory<ForgetPasswordUseCase>(() => ForgetPasswordUseCase(instance()));
-    instance.registerFactory<ForgotPasswordViewModel>(() => ForgotPasswordViewModel(instance()));
+initForgotPasswordModule() {
+  if (!GetIt.I.isRegistered<ForgetPasswordUseCase>()) {
+    instance.registerFactory<ForgetPasswordUseCase>(
+        () => ForgetPasswordUseCase(instance()));
+    instance.registerFactory<ForgotPasswordViewModel>(
+        () => ForgotPasswordViewModel(instance()));
   }
 }
 
-initRegisterModule(){
-  if(!GetIt.I.isRegistered<RegisterUsecase>()){
-    instance.registerFactory<RegisterUsecase>(() => RegisterUsecase(instance()));
-    instance.registerFactory<RegisterViewModel>(() => RegisterViewModel(instance()));
+initRegisterModule() {
+  if (!GetIt.I.isRegistered<RegisterUsecase>()) {
+    instance
+        .registerFactory<RegisterUsecase>(() => RegisterUsecase(instance()));
+    instance.registerFactory<RegisterViewModel>(
+        () => RegisterViewModel(instance()));
+    instance.registerFactory<ImagePicker>(() => ImagePicker());
   }
 }

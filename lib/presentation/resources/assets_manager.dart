@@ -9,6 +9,8 @@ class ImageAssets {
   static const String leftArrowIc = 'assets/images/left_arrow_ic.svg';
   static const String rightArrowIc = 'assets/images/right_arrow_ic.svg';
   static const String loginIc = 'assets/images/login_ic.png';
+  static const String photoCameraIc = 'assets/images/photo_camera_ic.svg';
+
 }
 
 class JsonAssets {
