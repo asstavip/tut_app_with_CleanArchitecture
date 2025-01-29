@@ -44,4 +44,6 @@ class AppStrings {
   static const String invalidUserName =
       "User name should be more than 4 characters";
   static const String invalidPassword = "Password should be more than 8 characters";
+
+  static const String alreadyHaveAccount = "Already have an account ? Login";
 }
