@@ -33,7 +33,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   void start() {
-
+    inputState.add(ContentState());
   }
 
   @override
