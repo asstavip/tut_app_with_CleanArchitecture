@@ -24,6 +24,8 @@ class RegisterViewModel extends BaseViewModel
       StreamController<File>.broadcast();
   StreamController areAllInputsValidStreamController =
       StreamController<void>.broadcast();
+  final StreamController isUserRegisterSuccessfullyStreamController =
+      StreamController<bool>();
 
   // inputs
   final RegisterUsecase _registerUsecase;
@@ -45,6 +47,7 @@ class RegisterViewModel extends BaseViewModel
     passwordStreamController.close();
     profilePictureStreamController.close();
     areAllInputsValidStreamController.close();
+    isUserRegisterSuccessfullyStreamController.close();
   }
 
 //inputs
@@ -65,92 +68,119 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Sink get inputsAreValid => areAllInputsValidStreamController.sink;
+
   // outputs
 
   /*
-  this is the output of the username
+  * this is the output of the username
    */
   @override
   Stream<String?> get outputErrorUserName =>
-      userNameStreamController.stream.map((isUserNameValid) =>
-          isUserNameValid ? null : AppStrings.invalidUserName);
+      userNameStreamController.stream.map((userName) {
+        bool isValid = _isUserNameValid(userName);
+        return isValid ? null : AppStrings.invalidUserName;
+      });
 
   @override
   Stream<bool> get outputIsUserNameValid => userNameStreamController.stream
       .map((userName) => _isUserNameValid(userName));
 
   /*
-  this is the output of the email
+   * this is the output of the email
    */
 
   @override
-  Stream<String?> get outputErrorEmail => emailStreamController.stream
-      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailError);
+  Stream<String?> get outputErrorEmail =>
+      emailStreamController.stream.map((email) {
+        bool isValid = isEmailValid(email);
+        return isValid ? null : AppStrings.emailError;
+      });
 
   @override
   Stream<bool> get outputIsEmailValid =>
       emailStreamController.stream.map((email) => isEmailValid(email));
 
   /*
-  this is the output of the mobile
+  * this is the output of the mobile
    */
   @override
-  Stream<String?> get outputErrorMobile => mobileStreamController.stream.map(
-      (isMobileValid) => isMobileValid ? null : AppStrings.invalidMobileNumber);
+  Stream<String?> get outputErrorMobile =>
+      mobileStreamController.stream.map((isMobileValid) {
+        bool isValid = _isMobileValid(isMobileValid);
+        return isValid ? null : AppStrings.invalidMobileNumber;
+      });
 
   @override
   Stream<bool> get outputIsMobileValid =>
       mobileStreamController.stream.map((mobile) => _isMobileValid(mobile));
 
   /*
-  this is the output of the password
+  * this is the output of the password
    */
   @override
   Stream<bool> get outputIsPasswordValid => passwordStreamController.stream
       .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get outputErrorPassword => passwordStreamController.stream
-      .map((isPassword) => isPassword ? null : AppStrings.invalidPassword);
+  Stream<String?> get outputErrorPassword =>
+      passwordStreamController.stream.map((isPassword) {
+        bool isValid = _isPasswordValid(isPassword);
+        return isValid ? null : AppStrings.invalidPassword;
+      });
 
   @override
   Stream<File> get outputProfilePicture => profilePictureStreamController.stream
       .map((profilePicture) => profilePicture);
 
   /*
-  this is the output of the areAllInputsValid
+   * this is the output of the areAllInputsValid
    */
   @override
-  Stream<bool> get outputAreAllInputsValid => areAllInputsValidStreamController.stream.map((_)=> _isAllInputsValid());
+  Stream<bool> get outputAreAllInputsValid =>
+      areAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
+
   // _private functions
   bool _isUserNameValid(String userName) {
-    return userName.length > 4;
+    bool isValid = userName.length > 4;
+    return isValid;
   }
 
   bool _isMobileValid(String mobile) {
-    return mobile.length >= 9;
+    bool isValid = mobile.length >= 9;
+    return isValid;
   }
 
   bool _isPasswordValid(String password) {
-    return password.length >= 8;
-  }
-  bool _isAllInputsValid(){
-    return registerObject.userName.isNotEmpty && registerObject.email.isNotEmpty &&
-        registerObject.mobileNumber.isNotEmpty && registerObject.password.isNotEmpty &&
-        registerObject.profilePicture.isNotEmpty && registerObject.countryCode.isNotEmpty;
+    bool isValid = password.length >= 8;
+    return isValid;
   }
 
-  validate(){
+  bool _isAllInputsValid() {
+    bool isValid = registerObject.userName.isNotEmpty &&
+        registerObject.email.isNotEmpty &&
+        registerObject.mobileNumber.isNotEmpty &&
+        registerObject.password.isNotEmpty &&
+        registerObject.profilePicture.isNotEmpty;
+        registerObject.countryCode.isNotEmpty;
+    return isValid;
+  }
+
+  validate() {
     inputsAreValid.add(null);
   }
 
   @override
-  register() async{
+  register() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     try {
-      final result = await _registerUsecase
-          .execute(RegisterUsecaseInput(registerObject.userName, registerObject.countryCode, registerObject.mobileNumber, registerObject.email, registerObject.password, registerObject.profilePicture));
+      final result = await _registerUsecase.execute(RegisterUsecaseInput(
+          registerObject.userName,
+          registerObject.countryCode,
+          registerObject.mobileNumber,
+          registerObject.email,
+          registerObject.password,
+          registerObject.profilePicture));
       result.fold((failure) {
         // left -> failure
         inputState.add(
@@ -160,7 +190,7 @@ class RegisterViewModel extends BaseViewModel
         // content
         inputState.add(ContentState());
         // navigate to main screen
-
+        isUserRegisterSuccessfullyStreamController.add(true);
       });
     } catch (e) {
       inputState
@@ -180,9 +210,10 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setEmail(String email) {
+    inputEmail.add(email);
     if (isEmailValid(email)) {
       registerObject = registerObject.copyWith(email: email);
-    }else{
+    } else {
       registerObject = registerObject.copyWith(email: Constant.EMPTY);
     }
     validate();
@@ -190,9 +221,10 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setMobile(String mobile) {
+    inputMobile.add(mobile);
     if (_isMobileValid(mobile)) {
       registerObject = registerObject.copyWith(mobileNumber: mobile);
-    }else{
+    } else {
       registerObject = registerObject.copyWith(mobileNumber: Constant.EMPTY);
     }
     validate();
@@ -200,6 +232,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setPassword(String password) {
+    inputPassword.add(password);
     if (_isPasswordValid(password)) {
       registerObject = registerObject.copyWith(password: password);
     } else {
@@ -210,9 +243,11 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setProfilePicture(File profilePicture) {
+    inputProfilePicture.add(profilePicture);
     if (profilePicture.path.isNotEmpty) {
-      registerObject = registerObject.copyWith(profilePicture: profilePicture.path);
-    }else{
+      registerObject =
+          registerObject.copyWith(profilePicture: profilePicture.path);
+    } else {
       registerObject = registerObject.copyWith(profilePicture: Constant.EMPTY);
     }
     validate();
@@ -220,14 +255,15 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   setUserName(String userName) {
-    if (_isUserNameValid(userName)) {
+    inputUserName.add(userName);
+    bool isValid = _isUserNameValid(userName);
+    if (isValid) {
       registerObject = registerObject.copyWith(userName: userName);
     } else {
       registerObject = registerObject.copyWith(userName: Constant.EMPTY);
     }
     validate();
   }
-
 }
 
 abstract class RegisterViewModelInputs {
@@ -278,5 +314,4 @@ abstract class RegisterViewModelOutputs {
   Stream<File> get outputProfilePicture;
 
   Stream<bool> get outputAreAllInputsValid;
-
 }

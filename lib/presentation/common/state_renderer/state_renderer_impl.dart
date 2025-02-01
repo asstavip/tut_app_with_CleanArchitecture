@@ -70,6 +70,7 @@ class EmptyState extends FlowState {
 
 class SuccessState extends FlowState {
   final String message;
+
   SuccessState(this.message);
 
   @override
@@ -108,9 +109,12 @@ extension FlowStateExtension on FlowState {
         dismissDialog(context);
         return contentScreenWidget;
       default:
-        return contentScreenWidget;
+        {
+          return contentScreenWidget;
+        }
     }
   }
+
 
   void dismissDialog(BuildContext context, [Function? onDismissed]) {
     if (_isDialogShowing) {

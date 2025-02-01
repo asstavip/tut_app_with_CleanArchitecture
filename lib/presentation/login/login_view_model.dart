@@ -81,6 +81,7 @@ class LoginViewModel extends BaseViewModel
     } catch (e) {
       inputState
           .add(ErrorState(StateRendererType.popupErrorState, e.toString()));
+
     }
   }
 

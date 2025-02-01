@@ -26,7 +26,7 @@ class StateRenderer extends StatelessWidget {
   StateRendererType type;
   String message;
   String title;
-  Function retryActionFunction;
+  Function? retryActionFunction;
 
   StateRenderer({
     super.key,
@@ -97,7 +97,7 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  _getPopupDialog(BuildContext context, List<Widget> children) {
+  Widget _getPopupDialog(BuildContext context, List<Widget> children) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSize.s14),
@@ -120,7 +120,7 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  _getDialogContent(BuildContext context, List<Widget> children) {
+  Widget _getDialogContent(BuildContext context, List<Widget> children) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -129,12 +129,12 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  _getFullScreenLoadingState() {
+  Widget _getFullScreenLoadingState() {
     return _getItemsColumn(
         [_getAnimatedImage(JsonAssets.loading), _getMessage(message)]);
   }
 
-  _getFullScreenErrorState(BuildContext context) {
+  Widget _getFullScreenErrorState(BuildContext context) {
     return _getItemsColumn([
       _getAnimatedImage(JsonAssets.error),
       _getMessage(message),
@@ -142,7 +142,7 @@ class StateRenderer extends StatelessWidget {
     ]);
   }
 
-  _getFullScreenEmptyState() {
+  Widget _getFullScreenEmptyState() {
     return _getItemsColumn(
         [_getAnimatedImage(JsonAssets.empty), _getMessage(message)]);
   }
@@ -155,12 +155,12 @@ class StateRenderer extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              if (type == StateRendererType.fullScreenErrorState) {
-                retryActionFunction.call();
-              } else if (type == StateRendererType.popupErrorState) {
-                retryActionFunction.call();
+              if (StateRendererType == StateRendererType.fullScreenErrorState) {
+                retryActionFunction?.call();
+                print("retry function called");
               } else {
-                Navigator.of(context, rootNavigator: true).pop(true);
+                print('close dialog');
+                Navigator.of(context).pop();
               }
             },
             child: Text(

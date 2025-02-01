@@ -32,7 +32,7 @@ ThemeData getApplicationTheme() {
     appBarTheme: AppBarTheme(
       centerTitle: true,
       color: ColorPallete.primaryOrange,
-      elevation: AppSize.s4,
+      elevation: AppSize.s0,
       shadowColor: ColorPallete.primaryGray,
       titleTextStyle: getRegularStyle(
           color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
@@ -61,27 +61,27 @@ ThemeData getApplicationTheme() {
       displayLarge: getSemiBoldStyle(
           color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       displayMedium: getMediumStyle(
-          color: ColorPallete.lightGray, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       displaySmall: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       headlineLarge: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       headlineMedium: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       headlineSmall: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       titleLarge: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       titleMedium: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       titleSmall: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       bodyLarge: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       bodyMedium: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       bodySmall: getRegularStyle(
-          color: ColorPallete.primaryWhite, fontSize: FontSizeManager.s16),
+          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
     ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: ColorPallete.primaryOrange,
