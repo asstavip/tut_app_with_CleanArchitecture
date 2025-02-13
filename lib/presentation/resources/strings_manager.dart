@@ -52,4 +52,7 @@ class AppStrings {
   static const String profilePicture = "Profile Picture";
   static const String photoGallery = "Photo From Gallery";
   static const String camera = "Photo From Camera";
+  static const String notification = "Notification";
+  static const String search = "Search";
+  static const String setting = "Setting";
 }
