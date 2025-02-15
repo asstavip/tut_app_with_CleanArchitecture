@@ -51,7 +51,7 @@ class _MainViewState extends State<MainView> {
             BoxShadow(
               color: Colors.black,
               blurRadius: AppSize.s5,
-              spreadRadius: AppSize.s1,
+              spreadRadius: AppSize.s1_5,
               offset: Offset(0, 0),
             )
           ],

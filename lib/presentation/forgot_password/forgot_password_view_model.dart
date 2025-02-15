@@ -5,9 +5,6 @@ import 'package:flutter_advanced/domain/usecase/forget_password_usecase.dart';
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
-import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
-
-import '../resources/color_pallete.dart';
 
 abstract class ForgotPasswordViewModelInputs {
   forgotPassword(String email);

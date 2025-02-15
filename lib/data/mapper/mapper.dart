@@ -33,8 +33,41 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
     );
   }
 }
+
 extension ForgetPasswordResponseMapper on ForgotPasswordResponse? {
   String toDomain() {
     return this?.support?.orEmpty() ?? Constant.EMPTY;
   }
 }
+
+extension ServicesResponseMapper on ServiceResponse? {
+  Service toDomain() {
+    return Service(
+      this?.id?.orZero() ?? Constant.ZERO,
+      this?.title?.orEmpty() ?? Constant.EMPTY,
+      this?.image?.orEmpty() ?? Constant.EMPTY,
+    );
+  }
+}
+
+extension StoreResponseMapper on StoreResponse? {
+  Store toDomain() {
+    return Store(
+      this?.id?.orZero() ?? Constant.ZERO,
+      this?.title?.orEmpty() ?? Constant.EMPTY,
+      this?.image?.orEmpty() ?? Constant.EMPTY,
+    );
+  }
+}
+
+extension BannerResponseMapper on BannersResponse? {
+  BannerAd toDomain() {
+    return BannerAd(
+      this?.id?.orZero() ?? Constant.ZERO,
+      this?.title?.orEmpty() ?? Constant.EMPTY,
+      this?.image?.orEmpty() ?? Constant.EMPTY,
+      this?.link?.orEmpty() ?? Constant.EMPTY,
+    );
+  }
+}
+
