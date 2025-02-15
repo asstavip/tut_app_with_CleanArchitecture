@@ -71,3 +71,13 @@ extension BannerResponseMapper on BannersResponse? {
   }
 }
 
+extension HomeResponseMapper on HomeResponse?{
+  HomeObject toDomain(){
+    List<Service> services = (this?.data?.services?.map((service) => service.toDomain()).toList() ?? []).cast<Service>();
+    List<BannerAd> banners = (this?.data?.banners?.map((banner) => banner.toDomain()).toList() ?? []).cast<BannerAd>();
+    List<Store> stores = (this?.data?.stores?.map((store) => store.toDomain()).toList() ?? []).cast<Store>();
+
+    var data = HomeData(services, banners, stores);
+    return HomeObject(data);
+  }
+}
