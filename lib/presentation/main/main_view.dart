@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/presentation/main/pages/home_page.dart';
-import 'package:flutter_advanced/presentation/main/pages/notification_page.dart';
-import 'package:flutter_advanced/presentation/main/pages/search_page.dart';
-import 'package:flutter_advanced/presentation/main/pages/setting_page.dart';
+import 'package:flutter_advanced/presentation/main/pages/home/view/home_page.dart';
+import 'package:flutter_advanced/presentation/main/pages/notification/notification_page.dart';
+import 'package:flutter_advanced/presentation/main/pages/search/search_page.dart';
+import 'package:flutter_advanced/presentation/main/pages/setting/setting_page.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/resources/values_manager.dart';
