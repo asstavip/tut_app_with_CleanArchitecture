@@ -5,6 +5,8 @@ import 'package:flutter_advanced/domain/usecase/home_usecase.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../base/base_view_model.dart';
+import '../../../../common/state_renderer/state_renderer.dart';
+import '../../../../common/state_renderer/state_renderer_impl.dart';
 
 class HomeViewModel extends BaseViewModel
     implements HomeViewModelInput, HomeViewModelOutput {
@@ -20,7 +22,23 @@ class HomeViewModel extends BaseViewModel
   HomeViewModel(this._homeUseCase);
 
   @override
-  void start() {}
+  void start() {
+    _getHomeData();
+  }
+
+  _getHomeData() async {
+    inputState.add(LoadingState(
+        stateRendererType: StateRendererType.fullScreenLoadingState));
+    (await _homeUseCase.execute(())).fold((failure) {
+      inputState.add(ErrorState(StateRendererType.fullScreenErrorState,
+          failure.message));
+    }, (homeObject) {
+      inputState.add(ContentState());
+      inputBannerAd.add(homeObject.data?.banners);
+      inputStore.add(homeObject.data?.stores);
+      inputService.add(homeObject.data?.services);
+    });
+  }
 
   @override
   void dispose() {
@@ -33,29 +51,24 @@ class HomeViewModel extends BaseViewModel
   // * inputs *
 
   @override
-  // TODO: implement inputBannerAd
   Sink get inputBannerAd => _bannerStreamController.sink;
-
   @override
-  // TODO: implement inputService
   Sink get inputService => _serviceStreamController.sink;
-
   @override
-  // TODO: implement inputStore
   Sink get inputStore => _storeStreamController.sink;
-
   // * outputs *
   @override
-  // TODO: implement outputBannerAd
-  Stream<List<BannerAd>> get outputBannerAd => _bannerStreamController.stream.map((banner) => banner);
+  Stream<List<BannerAd>> get outputBannerAd =>
+      _bannerStreamController.stream.map((banner) => banner);
 
   @override
-  // TODO: implement outputService
-  Stream<List<Service>> get outputService => _serviceStreamController.stream.map((service) => service);
+  Stream<List<Service>> get outputService =>
+      _serviceStreamController.stream.map((service) => service);
 
   @override
-  // TODO: implement outputStore
-  Stream<List<Store>> get outputStore => _storeStreamController.stream.map((store) => store);
+  
+  Stream<List<Store>> get outputStore =>
+      _storeStreamController.stream.map((store) => store);
 }
 
 abstract class HomeViewModelInput {

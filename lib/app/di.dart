@@ -3,9 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_advanced/app/app_prefs.dart';
 import 'package:flutter_advanced/data/network/dio_factory.dart';
 import 'package:flutter_advanced/domain/usecase/forget_password_usecase.dart';
+import 'package:flutter_advanced/domain/usecase/home_usecase.dart';
 import 'package:flutter_advanced/domain/usecase/login_usecase.dart';
 import 'package:flutter_advanced/domain/usecase/register_usecase.dart';
 import 'package:flutter_advanced/presentation/forgot_password/forgot_password_view_model.dart';
+import 'package:flutter_advanced/presentation/main/pages/home/viewmodel/home_view_model.dart';
 import 'package:flutter_advanced/presentation/register/register_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,5 +75,12 @@ initRegisterModule() {
     instance.registerFactory<RegisterViewModel>(
         () => RegisterViewModel(instance()));
     instance.registerFactory<ImagePicker>(() => ImagePicker());
+  }
+}
+
+initHomeModule() {
+  if (!GetIt.I.isRegistered<HomeUseCase>()) {
+    instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+    instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
   }
 }
