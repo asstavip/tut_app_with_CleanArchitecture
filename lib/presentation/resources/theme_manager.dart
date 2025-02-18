@@ -61,7 +61,7 @@ ThemeData getApplicationTheme() {
       displayLarge: getSemiBoldStyle(
           color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       displayMedium: getMediumStyle(
-          color: ColorPallete.gray, fontSize: FontSizeManager.s16),
+          color: ColorPallete.primaryOrange, fontSize: FontSizeManager.s16),
       displaySmall: getRegularStyle(
           color: ColorPallete.gray, fontSize: FontSizeManager.s16),
       headlineLarge: getRegularStyle(

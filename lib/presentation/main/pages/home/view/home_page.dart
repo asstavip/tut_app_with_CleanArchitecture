@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder<HomeViewObject>(
         stream: _homeViewModel.outputHomeData,
         builder: (context, snapshot) {
-         return Column(
+          return Column(
             children: [
               _getBannerCarousel(snapshot.data?.banners),
               _getSections(AppStrings.services),
@@ -70,16 +70,20 @@ class _HomePageState extends State<HomePage> {
   Widget _getSections(String title) {
     return Padding(
       padding: EdgeInsets.all(AppPadding.p12),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.displaySmall,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
       ),
     );
   }
 
   Widget _getServices(List<Service>? services) {
     return StreamBuilder<List<Service>>(
-        stream: _homeViewModel.outputHomeData.map((homeData) => homeData.services),
+        stream:
+            _homeViewModel.outputHomeData.map((homeData) => homeData.services),
         builder: (context, snapshot) {
           return _getServicesWidget(snapshot.data);
         });
@@ -200,51 +204,54 @@ class _HomePageState extends State<HomePage> {
       return const SizedBox();
     }
     return SizedBox(
-    height: AppSize.s180,
-    child: CarouselView.weighted(
-      flexWeights: const [1, 7, 1], // This creates a hero layout with larger center item
-      itemSnapping: true, // Enables snapping to items
-      scrollDirection: Axis.horizontal,
-      consumeMaxWeight: true,
-      shrinkExtent: 0.0,
-      onTap: (index) {
-        setState(() {
-        });
-      },
-      children: banners.map((banner) => 
-        Card(
-          elevation: AppSize.s1_5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSize.s14),
-            side: BorderSide(
-              color: ColorPallete.primaryOrange,
-              width: AppSize.s1_5
-            ),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(AppSize.s14),
-            child: Image.network(
-              banner.image,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
+      height: AppSize.s180,
+      child: CarouselView.weighted(
+        flexWeights: const [
+          1,
+          7,
+          1
+        ], // This creates a hero layout with larger center item
+        itemSnapping: true, // Enables snapping to items
+        scrollDirection: Axis.horizontal,
+        consumeMaxWeight: true,
+        shrinkExtent: 0.0,
+        onTap: (index) {
+          setState(() {});
+        },
+        children: banners
+            .map(
+              (banner) => Card(
+                elevation: AppSize.s1_5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSize.s14),
+                  side: BorderSide(
+                      color: ColorPallete.primaryOrange, width: AppSize.s1_5),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(AppSize.s14),
+                  child: Image.network(
+                    banner.image,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(Icons.error);
+                    },
                   ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
-            ),
-          ),
-        ),
-      ).toList(),
-    ),
-  );
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
   }
 }
