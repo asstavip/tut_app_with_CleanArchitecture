@@ -8,7 +8,6 @@ import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/splash/splash.dart';
 import 'package:flutter_advanced/presentation/store_details/store_details.dart';
 
-import '../forgot_password/forgot_password.dart';
 import '../onboarding/onboarding.dart';
 
 class Routes{

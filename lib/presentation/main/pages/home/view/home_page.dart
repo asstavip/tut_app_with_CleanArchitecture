@@ -53,15 +53,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getContentWidget() {
-    return Column(
-      children: [
-        _getBannerCarousel(),
-        _getSections(AppStrings.services),
-        _getServices(),
-        _getSections(AppStrings.stores),
-        _getStores(),
-      ],
-    );
+    return StreamBuilder<HomeViewObject>(
+        stream: _homeViewModel.outputHomeData,
+        builder: (context, snapshot) {
+         return Column(
+            children: [
+              _getBannerCarousel(snapshot.data?.banners),
+              _getSections(AppStrings.services),
+              _getServices(snapshot.data?.services),
+              _getSections(AppStrings.stores),
+              _getStores(snapshot.data?.stores),
+            ],
+          );
+        });
   }
 
   Widget _getSections(String title) {
@@ -74,9 +78,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getServices() {
+  Widget _getServices(List<Service>? services) {
     return StreamBuilder<List<Service>>(
-        stream: _homeViewModel.outputService,
+        stream: _homeViewModel.outputHomeData.map((homeData) => homeData.services),
         builder: (context, snapshot) {
           return _getServicesWidget(snapshot.data);
         });
@@ -130,9 +134,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getStores() {
+  Widget _getStores(List<Store>? stores) {
     return StreamBuilder<List<Store>>(
-        stream: _homeViewModel.outputStore,
+        stream: _homeViewModel.outputHomeData.map(
+          (homeData) => homeData.stores,
+        ),
         builder: (context, snapshot) {
           return _getStoresWidget(snapshot.data);
         });
@@ -163,9 +169,7 @@ class _HomePageState extends State<HomePage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppSize.s14),
               side: BorderSide(
-                  color: ColorPallete.primaryOrange,
-                  width: AppSize.s1_5
-              ),
+                  color: ColorPallete.primaryOrange, width: AppSize.s1_5),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(AppSize.s14),
@@ -183,9 +187,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getBannerCarousel() {
+  Widget _getBannerCarousel(List<BannerAd>? banners) {
     return StreamBuilder<List<BannerAd>>(
-        stream: _homeViewModel.outputBannerAd,
+        stream:
+            _homeViewModel.outputHomeData.map((homeData) => homeData.banners),
         builder: (context, snapshot) {
           return _getBannerWidget(snapshot.data);
         });

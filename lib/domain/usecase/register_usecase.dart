@@ -4,7 +4,6 @@ import 'package:flutter_advanced/domain/model/model.dart';
 import 'package:flutter_advanced/domain/repository/repository.dart';
 import 'package:flutter_advanced/domain/usecase/base_usecase.dart';
 
-import '../../app/functions.dart';
 import '../../data/request/request.dart';
 
 class RegisterUsecase implements BaseUseCase<RegisterUsecaseInput, Authentication> {
