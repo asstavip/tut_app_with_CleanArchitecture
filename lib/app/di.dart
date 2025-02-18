@@ -1,6 +1,7 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_advanced/app/app_prefs.dart';
+import 'package:flutter_advanced/data/data_source/local_data_source.dart';
 import 'package:flutter_advanced/data/network/dio_factory.dart';
 import 'package:flutter_advanced/domain/usecase/forget_password_usecase.dart';
 import 'package:flutter_advanced/domain/usecase/home_usecase.dart';
@@ -47,9 +48,13 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImplementer(instance<AppServiceClient>()));
 
+  // local data source
+  instance.registerLazySingleton<LocalDataSource>(
+          () => LocalDataSourceImplementer());
+
   // repository
   instance.registerLazySingleton<Repository>(() =>
-      RepositoryImpl(instance<RemoteDataSource>(), instance<NetworkInfo>()));
+      RepositoryImpl(instance<RemoteDataSource>(), instance<NetworkInfo>(),instance()));
 }
 
 Future<void> initLoginModule() async {
