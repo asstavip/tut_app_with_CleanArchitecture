@@ -157,9 +157,7 @@ class StateRenderer extends StatelessWidget {
             onPressed: () {
               if (StateRendererType == StateRendererType.fullScreenErrorState) {
                 retryActionFunction?.call();
-                print("retry function called");
               } else {
-                print('close dialog');
                 Navigator.of(context).pop();
               }
             },

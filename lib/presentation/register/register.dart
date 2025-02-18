@@ -147,7 +147,6 @@ class _RegisterState extends State<Register> {
                           hideMainText: true,
                           textStyle: TextStyle(color: ColorPallete.primaryGray),
                           onChanged: (country) {
-                            print(country.dialCode);
                             _viewModel.setCountryCode(
                                 country.dialCode ?? Constant.token);
                           },

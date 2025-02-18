@@ -35,15 +35,12 @@ class DioFactory {
     );
 
     dio.options.baseUrl = Constant.baseUrl;
-    if (kReleaseMode) {
-      print("Release Mode");
-    } else {
+
       dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         responseBody: true,
         responseHeader: true,
       ));
-    }
     return dio;
   }
 }

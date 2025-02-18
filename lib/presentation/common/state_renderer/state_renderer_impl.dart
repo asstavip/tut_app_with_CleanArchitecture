@@ -126,7 +126,7 @@ extension FlowStateExtension on FlowState {
     if (_isDialogShowing) {
       Navigator.of(context, rootNavigator: true).pop(true);
       _isDialogShowing = false;
-      print('****************************Dismissing dialog');
+      
       if (onDismissed != null) {
         onDismissed();
       }
@@ -136,8 +136,7 @@ extension FlowStateExtension on FlowState {
   void showPopUp(
       BuildContext context, StateRendererType stateRendererType, String message,
       {String title = ''}) {
-    print(
-        '****************************Showing popup of type: $stateRendererType with message: $message');
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(
         context: context,

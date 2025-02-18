@@ -57,26 +57,26 @@ class LocalDataSourceImplementer implements LocalDataSource {
 // in local_data_source.dart
   @override
   Future<StoreDetailsResponse> getStoreDetails() async{
-    print("Attempting to get store details from cache..."); // Add this
+    
     CachedItem? cachedItem = cacheMap[CACHE_DETAILS_KEY];
-    print("Cache item found: ${cachedItem != null}"); // Add this
+    
     if (cachedItem != null) {
-      print("Cache validity: ${cachedItem.isValid(CACHE_DETAILS_INTERVAL)}"); // Add this
+      
     }
     if (cachedItem != null && cachedItem.isValid(CACHE_DETAILS_INTERVAL)) {
-      print("Returning cached data"); // Add this
+      
       return cachedItem.data;
     } else {
-      print("Cache miss or expired"); // Add this
+      
       throw ErrorHandler.handle(DataSource.CACHE_ERROR);
     }
   }
 
   @override
   Future<void> saveStoreDetailsCache(StoreDetailsResponse storeDetailsResponse) async{
-    print("Saving store details to cache..."); // Add this
+    
     cacheMap[CACHE_DETAILS_KEY] = CachedItem(storeDetailsResponse);
-    print("Cache saved successfully"); // Add this
+    
   }
 
 }
