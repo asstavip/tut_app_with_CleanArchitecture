@@ -12,7 +12,8 @@ import '../../../../common/state_renderer/state_renderer_impl.dart';
 class HomeViewModel extends BaseViewModel
     implements HomeViewModelInput, HomeViewModelOutput {
   // Use a single StreamController for HomeViewObject
-  final StreamController _homeStreamController = BehaviorSubject<HomeViewObject>();
+  final StreamController _homeStreamController =
+      BehaviorSubject<HomeViewObject>();
 
   final HomeUseCase _homeUseCase;
 
@@ -27,8 +28,8 @@ class HomeViewModel extends BaseViewModel
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
     (await _homeUseCase.execute(Void)).fold((failure) {
-      inputState.add(ErrorState(StateRendererType.fullScreenErrorState,
-          failure.message));
+      inputState.add(
+          ErrorState(StateRendererType.fullScreenErrorState, failure.message));
     }, (homeObject) {
       inputState.add(ContentState());
       // Emit HomeViewObject containing banners, services, and stores
@@ -56,7 +57,7 @@ class HomeViewModel extends BaseViewModel
   @override
   Stream<HomeViewObject> get outputHomeData => _homeStreamController.stream.map(
         (homeViewObject) => homeViewObject,
-  );
+      );
 }
 
 abstract class HomeViewModelInput {
@@ -66,8 +67,6 @@ abstract class HomeViewModelInput {
 abstract class HomeViewModelOutput {
   Stream<HomeViewObject> get outputHomeData;
 }
-
-
 
 class HomeViewObject {
   final List<BannerAd> banners;

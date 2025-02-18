@@ -6,7 +6,7 @@ import 'package:flutter_advanced/presentation/main/main_view.dart';
 import 'package:flutter_advanced/presentation/register/register.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/splash/splash.dart';
-import 'package:flutter_advanced/presentation/store_details/store_details.dart';
+import 'package:flutter_advanced/presentation/store_details/view/store_details.dart';
 
 import '../onboarding/onboarding.dart';
 
@@ -40,7 +40,8 @@ class RouteGenerator{
         initHomeModule();
         return MaterialPageRoute(builder: (_)=> const MainView());
       case Routes.storeDetailsRoute:
-        return MaterialPageRoute(builder: (_)=> const StoreDetails());
+        initStoreDetailsModule();
+        return MaterialPageRoute(builder: (_)=> const StoreDetailsView());
       default:
         return unDefinedRoute();
     }

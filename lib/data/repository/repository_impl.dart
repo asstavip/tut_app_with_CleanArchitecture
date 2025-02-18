@@ -112,4 +112,32 @@ class RepositoryImpl extends Repository {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, StoreDetails>> getStoreDetails() async{
+    // try {
+    //   final response = await _localDataSource.getStoreDetails();
+    //   return Right(response.toDomain());
+    //   // get response from cache
+    // } catch (cacheError) {
+      // cache is Not exist
+      if (await _networkInfo.isConnected) {
+        try {
+          final response = await _remoteDataSource.getStoreDetails();
+          if (response.status == ApiInternalStatus.SUCCESS) {
+            // save response in cache
+            // _localDataSource.saveHomeCache(response);
+            return Right(response.toDomain());
+          } else {
+            return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
+                response.message ?? ResponseMessage.UNKNOWN));
+          }
+        } catch (e) {
+          return Left(ErrorHandler.handle(e).failure);
+        }
+      } else {
+        return Left(DataSource.NO_INTERNET_CONNETCTION.getFailure());
+      }
+    }
+  // }
 }
