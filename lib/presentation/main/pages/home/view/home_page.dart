@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/di.dart';
 import 'package:flutter_advanced/domain/model/model.dart';
@@ -200,49 +199,52 @@ class _HomePageState extends State<HomePage> {
     if (banners == null || banners.isEmpty) {
       return const SizedBox();
     }
-    return CarouselSlider(
-      items: banners
-          .map((banner) => SizedBox(
-                width: double.infinity,
-                child: Card(
-                  elevation: AppSize.s1_5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSize.s14),
-                    side: BorderSide(
-                        color: ColorPallete.primaryOrange, width: AppSize.s1_5),
+    return SizedBox(
+    height: AppSize.s180,
+    child: CarouselView.weighted(
+      flexWeights: const [1, 7, 1], // This creates a hero layout with larger center item
+      itemSnapping: true, // Enables snapping to items
+      scrollDirection: Axis.horizontal,
+      consumeMaxWeight: true,
+      shrinkExtent: 0.0,
+      onTap: (index) {
+        setState(() {
+        });
+      },
+      children: banners.map((banner) => 
+        Card(
+          elevation: AppSize.s1_5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.s14),
+            side: BorderSide(
+              color: ColorPallete.primaryOrange,
+              width: AppSize.s1_5
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(AppSize.s14),
+            child: Image.network(
+              banner.image,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSize.s14),
-                    child: Image.network(
-                      banner.image,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.error);
-                      },
-                    ),
-                  ),
-                ),
-              ))
-          .toList(),
-      options: CarouselOptions(
-        height: AppSize.s180,
-        autoPlay: true,
-        enlargeCenterPage: true,
-        enlargeFactor: AppSize.s0_3,
-        autoPlayCurve: Curves.fastOutSlowIn,
-        autoPlayAnimationDuration: const Duration(seconds: 1),
-      ),
-    );
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+            ),
+          ),
+        ),
+      ).toList(),
+    ),
+  );
   }
 }
