@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: stores.length,
         itemBuilder: (context, index) => InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(Routes.storeDetailsRoute);
+            Navigator.of(context).pushNamed(Routes.storeDetailsRoute,arguments: stores[index].id,);
           },
           child: Card(
             elevation: AppSize.s1_5,

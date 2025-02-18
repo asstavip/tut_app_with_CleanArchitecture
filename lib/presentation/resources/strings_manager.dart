@@ -61,6 +61,6 @@ class AppStrings {
 
   static const String storeDetails = "Store Details";
 
-  static String about = "About";
+  static const String about = "About";
 
 }

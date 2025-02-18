@@ -18,18 +18,21 @@ class StoreDetailsViewModel extends BaseViewModel
   StoreDetailsViewModel(this._storeDetailsUseCase);
 
   @override
-  void start() {
+  void start() async{
     _getStoreDetails();
   }
 
   _getStoreDetails() async {
+    print("Getting store details...");
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
     (await _storeDetailsUseCase.execute(Void)).fold((failure) {
+      print("Store details error: ${failure.message}"); // Add this
       inputState.add(
           ErrorState(StateRendererType.fullScreenErrorState, failure.message));
-    }, (storeDetails) {
+    }, (storeDetails) async{
+      print("Store details received: ${storeDetails.toString()}"); // Add this
       inputState.add(ContentState());
       inputStoreDetails.add(storeDetails);
     });

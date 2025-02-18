@@ -2,13 +2,23 @@ import 'package:flutter_advanced/data/network/error_handler.dart';
 import 'package:flutter_advanced/data/responses/responses.dart';
 
 const CACHE_HOME_KEY = "CACHE_HOME_KEY";
+const CACHE_DETAILS_KEY = "CACHE_DETAILS_KEY";
 const CACHE_HOME_INTERVAL = 60 * 1000;
+const CACHE_DETAILS_INTERVAL = 60 * 1000;
 
 abstract class LocalDataSource {
+  // ! get home data from cache
   Future<HomeResponse> getHomeData();
 
+  // ! save home data in cache
   Future<void> saveHomeCache(HomeResponse homeResponse);
 
+
+  // ! get store details data from cache
+  Future<StoreDetailsResponse> getStoreDetails();
+
+  // ! save store details data in cache
+  Future<void> saveStoreDetailsCache(StoreDetailsResponse storeDetailsResponse);
   void clearCache();
 
   void removeFromCache(String key);
@@ -43,6 +53,32 @@ class LocalDataSourceImplementer implements LocalDataSource {
   void removeFromCache(String key) {
     cacheMap.remove(key);
   }
+
+// in local_data_source.dart
+  @override
+  Future<StoreDetailsResponse> getStoreDetails() async{
+    print("Attempting to get store details from cache..."); // Add this
+    CachedItem? cachedItem = cacheMap[CACHE_DETAILS_KEY];
+    print("Cache item found: ${cachedItem != null}"); // Add this
+    if (cachedItem != null) {
+      print("Cache validity: ${cachedItem.isValid(CACHE_DETAILS_INTERVAL)}"); // Add this
+    }
+    if (cachedItem != null && cachedItem.isValid(CACHE_DETAILS_INTERVAL)) {
+      print("Returning cached data"); // Add this
+      return cachedItem.data;
+    } else {
+      print("Cache miss or expired"); // Add this
+      throw ErrorHandler.handle(DataSource.CACHE_ERROR);
+    }
+  }
+
+  @override
+  Future<void> saveStoreDetailsCache(StoreDetailsResponse storeDetailsResponse) async{
+    print("Saving store details to cache..."); // Add this
+    cacheMap[CACHE_DETAILS_KEY] = CachedItem(storeDetailsResponse);
+    print("Cache saved successfully"); // Add this
+  }
+
 }
 
 class CachedItem {

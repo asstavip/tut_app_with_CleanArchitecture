@@ -12,9 +12,9 @@ import 'package:flutter_advanced/domain/repository/repository.dart';
 import '../network/error_handler.dart';
 
 class RepositoryImpl extends Repository {
-  RemoteDataSource _remoteDataSource;
-  LocalDataSource _localDataSource;
-  NetworkInfo _networkInfo;
+  final RemoteDataSource _remoteDataSource;
+  final LocalDataSource _localDataSource;
+  final NetworkInfo _networkInfo;
 
   RepositoryImpl(
       this._remoteDataSource, this._networkInfo, this._localDataSource);
@@ -115,29 +115,34 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<Either<Failure, StoreDetails>> getStoreDetails() async{
-    // try {
-    //   final response = await _localDataSource.getStoreDetails();
-    //   return Right(response.toDomain());
-    //   // get response from cache
-    // } catch (cacheError) {
-      // cache is Not exist
+    print("Repository: Getting store details..."); // Add this
+    try {
+      final response = await _localDataSource.getStoreDetails();
+      print("Repository: Got details from cache"); // Add this
+      return Right(response.toDomain());
+    } catch (cacheError) {
+      print("Repository: Cache error - $cacheError"); // Add this
       if (await _networkInfo.isConnected) {
         try {
           final response = await _remoteDataSource.getStoreDetails();
+          print("Repository: Got details from API"); // Add this
           if (response.status == ApiInternalStatus.SUCCESS) {
-            // save response in cache
-            // _localDataSource.saveHomeCache(response);
+            print("Repository: Saving to cache"); // Add this
+            _localDataSource.saveStoreDetailsCache(response);
             return Right(response.toDomain());
           } else {
+            print("Repository: API error - ${response.message}"); // Add this
             return Left(Failure(response.status ?? ApiInternalStatus.FAILURE,
                 response.message ?? ResponseMessage.UNKNOWN));
           }
         } catch (e) {
+          print("Repository: API exception - $e"); // Add this
           return Left(ErrorHandler.handle(e).failure);
         }
       } else {
+        print("Repository: No internet connection"); // Add this
         return Left(DataSource.NO_INTERNET_CONNETCTION.getFailure());
       }
     }
-  // }
+  }
 }

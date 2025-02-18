@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/di.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
 import 'package:flutter_advanced/presentation/resources/values_manager.dart';
 import 'package:flutter_advanced/presentation/store_details/viewmodel/store_details_view_model.dart';
 
@@ -41,6 +42,9 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
         title: Text(
           AppStrings.storeDetails,
           style: Theme.of(context).textTheme.titleSmall,
+        ),
+        iconTheme: IconThemeData(
+          color: ColorPallete.primaryWhite,
         ),
       ),
       body: Center(
