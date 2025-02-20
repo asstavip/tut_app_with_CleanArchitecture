@@ -5,8 +5,9 @@ const String PREF_KEY_LANGUAGE = "PREF_KEY_LANGUAGE";
 const String PREF_KEY_IS_USER_LOGGED_IN = "PREF_KEY_IS_USER_LOGGED_IN";
 const String PREF_KEY_IS_ONBOARDING_VIEWED = "PREF_KEY_IS_ONBOARDING_VIEWED";
 const String PREF_KEY_IS_USER_REGISTERED = "PREF_KEY_IS_USER_REGISTERED";
+
 class AppPreferences {
-  SharedPreferences _sharedPreferences;
+  final SharedPreferences _sharedPreferences;
 
   AppPreferences(this._sharedPreferences);
 
@@ -14,11 +15,11 @@ class AppPreferences {
     String? language = _sharedPreferences.getString(PREF_KEY_LANGUAGE);
     return language ?? LanguageType.ENGLISH.getValue();
   }
-  
+
   Future<void> setOnboardingViewed() async {
     _sharedPreferences.setBool(PREF_KEY_IS_ONBOARDING_VIEWED, true);
   }
-  
+
   Future<bool> isOnboardingViewed() async {
     return _sharedPreferences.getBool(PREF_KEY_IS_ONBOARDING_VIEWED) ?? false;
   }
@@ -39,4 +40,7 @@ class AppPreferences {
     return _sharedPreferences.getBool(PREF_KEY_IS_USER_REGISTERED) ?? false;
   }
 
+  Future<void> logout() async {
+    _sharedPreferences.remove(PREF_KEY_IS_USER_LOGGED_IN);
+  }
 }

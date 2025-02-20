@@ -51,6 +51,8 @@ dependencies:
   retrofit_generator: ^9.1.7
   rxdart: ^0.28.0
   shared_preferences: ^2.3.5
+  easy_localization: ^3.0.7+1
+  flutter_phoenix: ^1.1.1
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

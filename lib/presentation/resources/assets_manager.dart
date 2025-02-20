@@ -11,6 +11,12 @@ class ImageAssets {
   static const String loginIc = 'assets/images/login_ic.png';
   static const String photoCameraIc = 'assets/images/photo_camera_ic.svg';
 
+  static const String changeLanguageIc = 'assets/images/change_lang_ic.svg';
+  static const String contactUsIc = 'assets/images/contact_us_ic.svg';
+  static const String inviteFriendIc = 'assets/images/invite_friends_ic.svg';
+  static const String logoutIc = 'assets/images/logout_ic.svg';
+  static const String settingRightArrowIC = 'assets/images/settings_right_arrow_ic.svg';
+
 }
 
 class JsonAssets {

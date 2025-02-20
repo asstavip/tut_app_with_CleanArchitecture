@@ -19,6 +19,7 @@ abstract class LocalDataSource {
 
   // ! save store details data in cache
   Future<void> saveStoreDetailsCache(StoreDetailsResponse storeDetailsResponse);
+  // * clear cache if the user logout
   void clearCache();
 
   void removeFromCache(String key);
