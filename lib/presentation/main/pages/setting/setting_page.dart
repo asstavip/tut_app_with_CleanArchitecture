@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/data/data_source/local_data_source.dart';
 import 'package:flutter_advanced/presentation/resources/assets_manager.dart';
@@ -29,7 +30,7 @@ class _SettingPageState extends State<SettingPage> {
             ListTile(
               leading: SvgPicture.asset(ImageAssets.changeLanguageIc),
               title: Text(
-                AppStrings.changeLanguage,
+                AppStrings.changeLanguage.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               trailing: SvgPicture.asset(ImageAssets.settingRightArrowIC),
@@ -41,7 +42,7 @@ class _SettingPageState extends State<SettingPage> {
             ListTile(
               leading: SvgPicture.asset(ImageAssets.contactUsIc),
               title: Text(
-                AppStrings.contactUs,
+                AppStrings.contactUs.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               trailing: SvgPicture.asset(ImageAssets.settingRightArrowIC),
@@ -53,7 +54,7 @@ class _SettingPageState extends State<SettingPage> {
             ListTile(
               leading: SvgPicture.asset(ImageAssets.inviteFriendIc),
               title: Text(
-                AppStrings.inviteYourFreinds,
+                AppStrings.inviteYourFreinds.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               trailing: SvgPicture.asset(ImageAssets.settingRightArrowIC),
@@ -65,7 +66,7 @@ class _SettingPageState extends State<SettingPage> {
             ListTile(
               leading: SvgPicture.asset(ImageAssets.logoutIc),
               title: Text(
-                AppStrings.logout,
+                AppStrings.logout.tr(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               trailing: SvgPicture.asset(ImageAssets.settingRightArrowIC),

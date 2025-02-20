@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_advanced/app/app_prefs.dart';
@@ -98,11 +99,11 @@ class _LoginState extends State<Login> {
                       decoration: InputDecoration(
                         labelStyle: TextStyle(color: ColorPallete.primaryGray),
                         focusColor: ColorPallete.primaryOrange,
-                        labelText: AppStrings.email,
-                        hintText: AppStrings.hintEmail,
+                        labelText: AppStrings.email.tr(),
+                        hintText: AppStrings.hintEmail.tr(),
                         errorText: (snapshot.data ?? true)
                             ? null
-                            : AppStrings.emailError,
+                            : AppStrings.emailError.tr(),
                         filled: true,
                       ),
                     );
@@ -125,11 +126,11 @@ class _LoginState extends State<Login> {
                       decoration: InputDecoration(
                         labelStyle: TextStyle(color: ColorPallete.primaryGray),
                         focusColor: ColorPallete.primaryOrange,
-                        labelText: AppStrings.password,
-                        hintText: AppStrings.hintPassword,
+                        labelText: AppStrings.password.tr(),
+                        hintText: AppStrings.hintPassword.tr(),
                         errorText: (snapshot.data ?? true)
                             ? null
-                            : AppStrings.passwordError,
+                            : AppStrings.passwordError.tr(),
                       ),
                     );
                   },
@@ -153,7 +154,7 @@ class _LoginState extends State<Login> {
                               }
                             : null,
                         child: Text(
-                          AppStrings.login,
+                          AppStrings.login.tr(),
                           style: getMediumStyle(
                               color: ColorPallete.primaryWhite,
                               fontSize: FontSizeManager.s20),
@@ -175,7 +176,7 @@ class _LoginState extends State<Login> {
                             context, Routes.forgotPasswordRoute);
                       },
                       child: Text(
-                        AppStrings.forgotPassword,
+                        AppStrings.forgotPassword.tr(),
                         style:
                             getMediumStyle(color: ColorPallete.primaryOrange),
                       ),
@@ -186,7 +187,7 @@ class _LoginState extends State<Login> {
                             context, Routes.registerRoute);
                       },
                       child: Text(
-                        AppStrings.registerText,
+                        AppStrings.registerText.tr(),
                         style:
                             getMediumStyle(color: ColorPallete.primaryOrange),
                       ),

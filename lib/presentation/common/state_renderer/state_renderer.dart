@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/resources/assets_manager.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
@@ -31,7 +32,7 @@ class StateRenderer extends StatelessWidget {
   StateRenderer({
     super.key,
     required this.type,
-    this.message = AppStrings.loading,
+    required this.message,
     this.title = '',
     required this.retryActionFunction,
   });
@@ -50,7 +51,7 @@ class StateRenderer extends StatelessWidget {
         return _getPopupDialog(context, [
           _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.ok.tr(), context)
         ]);
       case StateRendererType.fullScreenLoadingState:
         return _getFullScreenLoadingState();
@@ -65,7 +66,7 @@ class StateRenderer extends StatelessWidget {
           _getAnimatedImage(JsonAssets.success),
           _getMessage(title),
           _getMessage(message),
-          _getRetryButton(AppStrings.ok, context)
+          _getRetryButton(AppStrings.ok.tr(), context)
         ]);
     }
   }
@@ -138,7 +139,7 @@ class StateRenderer extends StatelessWidget {
     return _getItemsColumn([
       _getAnimatedImage(JsonAssets.error),
       _getMessage(message),
-      _getRetryButton(AppStrings.retry, context)
+      _getRetryButton(AppStrings.retry.tr(), context)
     ]);
   }
 

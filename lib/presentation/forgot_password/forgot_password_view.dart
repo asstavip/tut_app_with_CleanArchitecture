@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/di.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -80,11 +81,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           labelStyle:
                               TextStyle(color: ColorPallete.primaryGray),
                           focusColor: ColorPallete.primaryOrange,
-                          hintText: AppStrings.hintEmail,
-                          labelText: AppStrings.hintEmail,
+                          hintText: AppStrings.hintEmail.tr(),
+                          labelText: AppStrings.hintEmail.tr(),
                           errorText: (snapshot.data ?? true)
                               ? null
-                              : AppStrings.emailError,
+                              : AppStrings.emailError.tr(),
                         ),
                       );
                     },
@@ -108,7 +109,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                 }
                               : null,
                           child: Text(
-                            AppStrings.resetPassword,
+                            AppStrings.resetPassword.tr(),
                             style: getMediumStyle(
                                 color: ColorPallete.primaryWhite,
                                 fontSize: FontSizeManager.s20),

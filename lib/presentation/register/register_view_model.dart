@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_advanced/app/constant.dart';
 import 'package:flutter_advanced/domain/usecase/register_usecase.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
@@ -78,7 +79,7 @@ class RegisterViewModel extends BaseViewModel
   Stream<String?> get outputErrorUserName =>
       userNameStreamController.stream.map((userName) {
         bool isValid = _isUserNameValid(userName);
-        return isValid ? null : AppStrings.invalidUserName;
+        return isValid ? null : AppStrings.invalidUserName.tr();
       });
 
   @override
@@ -93,7 +94,7 @@ class RegisterViewModel extends BaseViewModel
   Stream<String?> get outputErrorEmail =>
       emailStreamController.stream.map((email) {
         bool isValid = isEmailValid(email);
-        return isValid ? null : AppStrings.emailError;
+        return isValid ? null : AppStrings.emailError.tr();
       });
 
   @override
@@ -107,7 +108,7 @@ class RegisterViewModel extends BaseViewModel
   Stream<String?> get outputErrorMobile =>
       mobileStreamController.stream.map((isMobileValid) {
         bool isValid = _isMobileValid(isMobileValid);
-        return isValid ? null : AppStrings.invalidMobileNumber;
+        return isValid ? null : AppStrings.invalidMobileNumber.tr();
       });
 
   @override
@@ -125,7 +126,7 @@ class RegisterViewModel extends BaseViewModel
   Stream<String?> get outputErrorPassword =>
       passwordStreamController.stream.map((isPassword) {
         bool isValid = _isPasswordValid(isPassword);
-        return isValid ? null : AppStrings.invalidPassword;
+        return isValid ? null : AppStrings.invalidPassword.tr();
       });
 
   @override

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/di.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -40,7 +41,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.storeDetails,
+          AppStrings.storeDetails.tr(),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         iconTheme: IconThemeData(
@@ -117,7 +118,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                 child: Text(
-                  AppStrings.services,
+                  AppStrings.services.tr(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
@@ -132,7 +133,7 @@ class _StoreDetailsViewState extends State<StoreDetailsView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                 child: Text(
-                  AppStrings.about,
+                  AppStrings.about.tr(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),

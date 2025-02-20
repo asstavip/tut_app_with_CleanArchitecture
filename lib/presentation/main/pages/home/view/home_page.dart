@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/app/di.dart';
 import 'package:flutter_advanced/domain/model/model.dart';
@@ -58,9 +59,9 @@ class _HomePageState extends State<HomePage> {
           return Column(
             children: [
               _getBannerCarousel(snapshot.data?.banners),
-              _getSections(AppStrings.services),
+              _getSections(AppStrings.services.tr()),
               _getServices(snapshot.data?.services),
-              _getSections(AppStrings.stores),
+              _getSections(AppStrings.stores.tr()),
               _getStores(snapshot.data?.stores),
             ],
           );

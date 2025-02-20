@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced/app/app_prefs.dart';
@@ -136,7 +137,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   Navigator.pushReplacementNamed(context, Routes.loginRoute);
                 },
                 child: Text(
-                  AppStrings.skip,
+                  AppStrings.skip.tr(),
                   style: getMediumStyle(color: ColorPallete.primaryOrange),
                 ),
               ),

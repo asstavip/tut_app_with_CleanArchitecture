@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -119,8 +120,8 @@ class _RegisterState extends State<Register> {
                           labelStyle:
                               TextStyle(color: ColorPallete.primaryGray),
                           focusColor: ColorPallete.primaryOrange,
-                          labelText: AppStrings.username,
-                          hintText: AppStrings.hintUserName,
+                          labelText: AppStrings.username.tr(),
+                          hintText: AppStrings.hintUserName.tr(),
                           errorText: snapshot.data),
                     );
                   },
@@ -167,8 +168,8 @@ class _RegisterState extends State<Register> {
                                   labelStyle: TextStyle(
                                       color: ColorPallete.primaryGray),
                                   focusColor: ColorPallete.primaryOrange,
-                                  labelText: AppStrings.mobile,
-                                  hintText: AppStrings.hintMobile,
+                                  labelText: AppStrings.mobile.tr(),
+                                  hintText: AppStrings.hintMobile.tr(),
                                   errorText: (snapshot.data)),
                             );
                           },
@@ -193,8 +194,8 @@ class _RegisterState extends State<Register> {
                           labelStyle:
                               TextStyle(color: ColorPallete.primaryGray),
                           focusColor: ColorPallete.primaryOrange,
-                          labelText: AppStrings.email,
-                          hintText: AppStrings.hintEmail,
+                          labelText: AppStrings.email.tr(),
+                          hintText: AppStrings.hintEmail.tr(),
                           errorText: (snapshot.data)),
                     );
                   },
@@ -215,8 +216,8 @@ class _RegisterState extends State<Register> {
                             labelStyle:
                                 TextStyle(color: ColorPallete.primaryGray),
                             focusColor: ColorPallete.primaryOrange,
-                            labelText: AppStrings.password,
-                            hintText: AppStrings.hintPassword,
+                            labelText: AppStrings.password.tr(),
+                            hintText: AppStrings.hintPassword.tr(),
                             errorText: snapshot.data));
                   },
                 ),
@@ -254,7 +255,7 @@ class _RegisterState extends State<Register> {
                               }
                             : null,
                         child: Text(
-                          AppStrings.register,
+                          AppStrings.register.tr(),
                           style: getMediumStyle(
                               color: ColorPallete.primaryWhite,
                               fontSize: FontSizeManager.s20),
@@ -274,7 +275,7 @@ class _RegisterState extends State<Register> {
                         .pushReplacementNamed(Routes.loginRoute);
                   },
                   child: Text(
-                    AppStrings.alreadyHaveAccount,
+                    AppStrings.alreadyHaveAccount.tr(),
                     style: getMediumStyle(color: ColorPallete.primaryOrange),
                   ),
                 ),
@@ -294,7 +295,7 @@ class _RegisterState extends State<Register> {
         children: [
           Flexible(
               child: Text(
-            AppStrings.profilePicture,
+            AppStrings.profilePicture.tr(),
             style: getMediumStyle(color: ColorPallete.primaryGray),
           )),
           Flexible(
@@ -331,7 +332,7 @@ class _RegisterState extends State<Register> {
                 ListTile(
                   trailing: Icon(Icons.arrow_forward),
                   leading: const Icon(Icons.photo_library),
-                  title: const Text(AppStrings.photoGallery),
+                  title: Text(AppStrings.photoGallery.tr()),
                   onTap: () {
                     _imageFromGallery();
                     Navigator.of(context).pop();
@@ -340,7 +341,7 @@ class _RegisterState extends State<Register> {
                 ListTile(
                   trailing: Icon(Icons.arrow_forward),
                   leading: const Icon(Icons.photo_camera),
-                  title: const Text(AppStrings.camera),
+                  title: Text(AppStrings.camera.tr()),
                   onTap: () {
                     _imageFromCamera();
                   },

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/main/pages/home/view/home_page.dart';
 import 'package:flutter_advanced/presentation/main/pages/notification/notification_page.dart';
@@ -24,14 +25,14 @@ class _MainViewState extends State<MainView> {
   ];
 
   final List<String> _titles = [
-    AppStrings.home,
-    AppStrings.search,
-    AppStrings.notification,
-    AppStrings.setting
+    AppStrings.home.tr(),
+    AppStrings.search.tr(),
+    AppStrings.notification.tr(),
+    AppStrings.setting.tr()
   ];
 
   // ignore: unused_field
-  var _title = AppStrings.home;
+  var _title = AppStrings.home.tr();
   // ignore: unused_field
   var _currentIndex = 0;
   @override
@@ -61,10 +62,10 @@ class _MainViewState extends State<MainView> {
           unselectedItemColor: ColorPallete.gray,
           currentIndex: _currentIndex,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: AppStrings.home),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: AppStrings.search),
-            BottomNavigationBarItem(icon: Icon(Icons.notifications), label: AppStrings.notification),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: AppStrings.setting),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: AppStrings.home.tr()),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: AppStrings.search.tr()),
+            BottomNavigationBarItem(icon: Icon(Icons.notifications), label: AppStrings.notification.tr()),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), label: AppStrings.setting.tr()),
           ],
           onTap: onTap,
         ),
