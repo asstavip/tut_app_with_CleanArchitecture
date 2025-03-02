@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/main/pages/home/view/home_page.dart';
 import 'package:flutter_advanced/presentation/main/pages/notification/notification_page.dart';
-import 'package:flutter_advanced/presentation/main/pages/search/search_page.dart';
+import 'package:flutter_advanced/presentation/main/pages/search/view/search_page.dart';
 import 'package:flutter_advanced/presentation/main/pages/setting/setting_page.dart';
 import 'package:flutter_advanced/presentation/resources/color_pallete.dart';
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';

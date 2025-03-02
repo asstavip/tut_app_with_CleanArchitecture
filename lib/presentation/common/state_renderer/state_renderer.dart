@@ -24,12 +24,12 @@ enum StateRendererType {
 }
 
 class StateRenderer extends StatelessWidget {
-  StateRendererType type;
-  String message;
-  String title;
-  Function? retryActionFunction;
+  final StateRendererType type;
+  final String message;
+  final String title;
+  final Function? retryActionFunction;
 
-  StateRenderer({
+   const StateRenderer({
     super.key,
     required this.type,
     required this.message,

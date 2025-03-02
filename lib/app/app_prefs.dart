@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_advanced/presentation/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +16,29 @@ class AppPreferences {
   Future<String> getAppLanguage() async {
     String? language = _sharedPreferences.getString(PREF_KEY_LANGUAGE);
     return language ?? LanguageType.ENGLISH.getValue();
+  }
+
+  Future<void> setAppLanguage(String language) async {
+    _sharedPreferences.setString(PREF_KEY_LANGUAGE, language);
+  }
+
+  Future<void> changeAppLanguage() async {
+    String currentLanguage = await getAppLanguage();
+    if (currentLanguage == LanguageType.ENGLISH.getValue()) {
+      //set arabic
+      await setAppLanguage(LanguageType.ARABIC.getValue());
+    } else {
+      //set english
+      await setAppLanguage(LanguageType.ENGLISH.getValue());
+    }
+  }
+  Future<Locale> getLocale() async {
+    String currentLanguage = await getAppLanguage();
+    if (currentLanguage == LanguageType.ENGLISH.getValue()) {
+      return englishLocale;
+    } else {
+      return arabicLocale;
+    }
   }
 
   Future<void> setOnboardingViewed() async {

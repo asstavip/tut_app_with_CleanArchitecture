@@ -55,6 +55,8 @@ class AppStrings {
   static const String contactUs = "contact_us";
   static const String inviteYourFreinds = "invite_your_friends";
   static const String logout = "logout";
+  static const String checkOutApp = "check_out_app";
+
 
   // Error handler
   static const String badRequestError = "bad_request_error";
@@ -69,4 +71,7 @@ class AppStrings {
   static const String defaultError = "default_error";
   static const String cacheError = "cache_error";
   static const String noInternetError = "no_internet_error";
+
+  static const searchHint = "search_hint";
+  static const noResults = "no_results";
 }
